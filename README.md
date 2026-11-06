@@ -19,6 +19,8 @@ pnpm test:unit               # the pure parts: src/lib, src/i18n, src/sketches, 
 pnpm test                    # the unit tests, then a build in the stretch test's language and the end-to-end checks
 ```
 
+`dev_docs/` (git-ignored) holds the working notes: the plan the site was built from, where it stands and what comes next, and the deployment steps.
+
 `pnpm test` needs a browser: Playwright's own (`pnpm exec playwright install chromium`), or the Chrome on the computer with `PLAYWRIGHT_CHANNEL=chrome pnpm test`. It leaves the stretch test's language behind; `pnpm i18n:pseudo:remove` takes it away, and `pnpm build` then builds English alone again.
 
 Node 22 or later. The `.env.example` file lists the two values the site plugs services into; without them the site builds and runs, with the waitlist form answering by itself while developing and saying it could not send in a build.

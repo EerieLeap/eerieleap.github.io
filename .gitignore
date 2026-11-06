@@ -13,3 +13,6 @@ src/i18n/dict/en-xa.ts
 src/content/pages/en-xa/
 src/content/legal/en-xa/
 screenshots/
+
+# Working notes: the plan, the status and the deployment steps, not the site
+dev_docs/
