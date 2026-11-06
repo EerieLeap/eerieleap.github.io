@@ -1,0 +1,67 @@
+title: 'Join the waitlist'
+description: 'Eerie Leap is still being built. Join the waitlist for one update a month from the build, and a say in what the hardware gets.'
+
+crumbs: 'eerie leap / waitlist'
+status: 'in development'
+heading: 'follow the build'
+lead: 'Eerie Leap is still being built. Join the waitlist to hear how it goes once a month, and to have a say in what the hardware gets.'
+card: 'the waitlist'
+cardNote: 'One update a month. Leave any time. [How your address is kept](/legal/privacy/).'
+
+gets:
+  title: 'what joining gets you'
+  items:
+    - title: 'one update a month'
+      text: 'What was built, what broke and what comes next, with pictures. Nothing else is sent to the list.'
+    - title: 'a say in what the hardware gets'
+      text: 'A few questions once you have joined, and a question or two when a decision about the units comes up.'
+    - title: 'first access to early units'
+      text: 'When there are units to send out, the list hears first.'
+
+survey:
+  title: 'five questions, if you have a minute'
+  lead: 'None of them is required. The answers decide what gets built first.'
+  order: ['vehicle', 'ecu', 'inputs', 'gauge', 'cost']
+  fields:
+    - id: 'vehicle'
+      question: 'What would you put it in?'
+      label: 'the car or machine'
+      hint: 'make, model, year'
+    - id: 'ecu'
+      question: 'What does it have for an ECU?'
+      label: 'ECU, or none'
+      hint: 'make and model'
+    - id: 'cost'
+      question: 'What would you expect a unit to cost?'
+      label: 'your guess'
+      hint: 'a number is fine'
+  choices:
+    - id: 'inputs'
+      question: 'What would you connect?'
+      options:
+        [
+          'oil pressure',
+          'oil temperature',
+          'fuel pressure',
+          'wideband',
+          'exhaust temperature',
+          'wheel speed',
+          'switches',
+          'something else',
+        ]
+    - id: 'gauge'
+      question: 'Do you want a gauge on the dash?'
+      options: ['yes, a round one', 'yes, another shape', 'no, logging is enough']
+  send: 'send the answers'
+  sent: 'Thank you. Your answers are in.'
+  failed: 'That did not go through. Try again in a moment.'
+
+address:
+  title: 'what happens to your address'
+  items:
+    - name: 'who keeps it'
+      text: 'Eerie Leap, in the United States. Nobody else is given it, and it is used for the monthly update only.'
+    - name: 'where it is held'
+      text: 'With Sender, the service that sends the update.'
+    - name: 'how to leave'
+      text: 'A link in every update takes you off the list, at once. [The privacy page](/legal/privacy/) has the rest.'

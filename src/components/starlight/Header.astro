@@ -1,0 +1,92 @@
+---
+// The docs' bar: the site's own, with the docs' search in it. Starlight's menu button, beside it on a narrow page, opens
+// the docs' menu; the site's other pages are a tap on the wordmark away.
+import Search from '@astrojs/starlight/components/Search.astro';
+import { href, langOf, useT } from '@/i18n';
+import { NAV } from '@/lib/site';
+
+const lang = langOf(Astro.locals.starlightRoute.locale);
+const t = useT(lang);
+---
+
+<div class="bar">
+  <a class="wordmark" href={href(lang, '/')} aria-label={t('nav.home')}>
+    {t('site.name').toLowerCase()}
+  </a>
+  <div class="search">
+    <Search />
+  </div>
+  <nav class="links" aria-label={t('nav.label')}>
+    {NAV.map((item) => (
+      <a href={href(lang, item.path)} aria-current={item.key === 'nav.docs' ? 'page' : undefined}>
+        {t(item.key)}
+      </a>
+    ))}
+  </nav>
+  <a class="join" href={href(lang, '/waitlist/')}>
+    {t('nav.join')}
+  </a>
+</div>
+
+<style>
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 0 26px;
+    height: 100%;
+  }
+  .wordmark {
+    margin-inline-end: auto;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    word-spacing: -0.06em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .links {
+    display: none;
+    align-items: center;
+    gap: 0 26px;
+  }
+  .links a {
+    padding: 13px 0;
+    font-size: 13.5px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .links a[aria-current='page'] {
+    box-shadow: inset 0 -1px 0 var(--ink);
+  }
+  .links a:hover,
+  .wordmark:hover {
+    color: var(--pip);
+  }
+  .join {
+    display: none;
+    padding: 13px 18px;
+    background: var(--ink);
+    font-size: 13.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--ground);
+    text-decoration: none;
+  }
+  .join:hover {
+    background: var(--pip);
+  }
+  @media (min-width: 50rem) {
+    .search {
+      flex: 0 1 15rem;
+    }
+    .links {
+      display: flex;
+    }
+  }
+  @media (min-width: 64rem) {
+    .join {
+      display: block;
+    }
+  }
+</style>

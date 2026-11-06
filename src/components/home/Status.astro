@@ -1,0 +1,27 @@
+---
+import { Icon, Section } from '@/components/ui';
+import type { Home } from '@/content/types';
+
+interface Props {
+  status: Home['status'];
+}
+
+const { status } = Astro.props;
+---
+
+<Section id="status" title={status.title}>
+  <div class="flex flex-wrap gap-px border border-line bg-line">
+    {status.items.map((item) => (
+      <div class="flex min-h-[232px] min-w-0 flex-[1_1_250px] flex-col gap-2.5 bg-ground px-[22px] pt-5 pb-6">
+        <p class="label flex items-center gap-2 text-ink">
+          <span aria-hidden="true" class:list={['size-2 rounded-full', item.pending ? 'bg-pip' : 'bg-ink']} />
+          {item.state}
+        </p>
+        <Icon name={item.icon} className="mt-3 mb-auto" />
+        <h3 class="h-row">{item.title}</h3>
+        <p class="text-sm text-dim">{item.text}</p>
+      </div>
+    ))}
+  </div>
+  <p class="mt-7 max-w-[640px] text-dim">{status.note}</p>
+</Section>

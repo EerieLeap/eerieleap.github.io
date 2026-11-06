@@ -1,0 +1,29 @@
+---
+import { Cells, Figure, Section } from '@/components/ui';
+import type { Home } from '@/content/types';
+import { pictured, picture } from '@/lib/images';
+
+interface Props {
+  app: Home['app'];
+  lang: string;
+}
+
+const { app, lang } = Astro.props;
+const desktop = await picture(app.desktop.image);
+const phone = await picture(app.phone.image);
+const cells = await pictured(app.cells);
+---
+
+<Section id="app" title={app.title} lead={app.lead}>
+  <div class="flex flex-wrap items-stretch gap-4">
+    <div class="min-w-0 flex-[3_1_520px]">
+      <Figure picture={desktop} alt={app.desktop.alt} caption={app.desktop.caption} />
+    </div>
+    <div class="min-w-0 flex-[1_1_240px]">
+      <Figure picture={phone} alt={app.phone.alt} caption={app.phone.caption} phone />
+    </div>
+  </div>
+  <div class="mt-4">
+    <Cells items={cells} lang={lang} />
+  </div>
+</Section>

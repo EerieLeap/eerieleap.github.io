@@ -1,0 +1,8 @@
+# Packages allowed to run a build script when installed. Everything else installs without running code.
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+# The Astro checker loads a module through @emnapi, whose beta release breaks it; the stable one works (checked 2026-11-06).
+overrides:
+  '@emnapi/runtime': '^1.4.0'

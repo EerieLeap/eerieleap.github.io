@@ -1,0 +1,35 @@
+title: 'Licenses'
+description: "What is under which license: the firmware's repositories, this site's text and pictures, and its typefaces."
+
+crumbs: 'eerie leap / licenses'
+heading: 'licenses'
+lead: "What is under which license. The firmware's are read from its repositories."
+
+firmware:
+  title: 'the firmware'
+  items:
+    - name: 'rt_core'
+      text: 'The core every unit shares.'
+    - name: 'rt_daq'
+      text: 'The application of the unit that reads and logs.'
+    - name: 'rt_gauge'
+      text: 'The application of the unit with a display.'
+    - name: 'expression_engine'
+      text: 'The math expression language.'
+    - name: 'zephyr_lua'
+      text: 'Lua, as a Zephyr module.'
+
+site:
+  title: 'this site'
+  items:
+    - name: 'text and pictures'
+      text: '© {year} Eerie Leap. The screenshots and the wordmark may be used to write about the project.'
+    - name: 'Archivo'
+      text: 'The typeface of the headings and the text. By Omnibus-Type.'
+      mark: 'SIL OFL 1.1'
+    - name: 'Martian Mono'
+      text: 'The typeface of the small labels and the code. By Evil Martians.'
+      mark: 'SIL OFL 1.1'
+    - name: 'what it is built with'
+      text: 'Astro, React and Starlight.'
+      mark: 'MIT'

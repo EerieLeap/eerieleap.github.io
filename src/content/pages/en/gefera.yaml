@@ -1,0 +1,80 @@
+title: 'Gefera, the app'
+description: "Gefera is where an Eerie Leap system is set up: sensors, the CAN bus, the gauge's screens and logging, on a desktop or a phone, written to the unit over Bluetooth."
+
+crumbs: 'eerie leap / gefera'
+heading: 'Gefera, the app'
+lead: 'Gefera is where an Eerie Leap system is set up. Every input, message, gauge screen and logging rule is a setting you change on a desktop or a phone and write to the unit over Bluetooth.'
+actions:
+  join: 'join the waitlist'
+  more: 'see what it does'
+
+tour:
+  image: 'gauge-tour.webp'
+  alt: "Gefera on the desktop: a tachometer on the gauge editor's canvas, its needle climbing until the red zone lights up, then the gauge's other screens"
+  caption: 'fig. 01 · Gefera on the desktop: designing a gauge'
+
+does:
+  title: 'what you do in it'
+  items:
+    - image: 'crop-map.webp'
+      alt: 'Part of a system map: sensors, math expressions and the wires between them'
+      title: 'see the whole system on one map'
+      text: 'Every unit, input, message, sensor, logger and gauge widget, and what is wired to what.'
+    - image: 'crop-sensors.webp'
+      alt: "A sensor's calibration: a table of voltages and temperatures, and the curve through them"
+      title: 'set up sensors'
+      text: 'Analog inputs with calibration tables, digital inputs, CAN signals, math and Lua.'
+    - image: 'can-channel.webp'
+      cut: 'can'
+      alt: 'A CAN channel with its messages and their signals'
+      title: 'set up the CAN bus'
+      text: 'Channels, messages and signals, with DBC files in and out.'
+    - image: 'gauge-2.webp'
+      cut: 'gauge'
+      alt: "A gauge screen on the editor's canvas"
+      title: 'design the gauge'
+      text: 'Screens of dials, readouts, charts and pictures, bound to sensors.'
+    - image: 'gauge-red-zone.webp'
+      cut: 'gauge'
+      alt: 'A tachometer on the canvas with its red zone lit'
+      title: 'try it before it is in the car'
+      text: 'A preview value moves every dial and readout on the canvas.'
+    - image: 'crop-logging.webp'
+      alt: 'Logging settings: how often values are written and how large a file may grow'
+      title: 'choose what is logged'
+      text: 'Which values, how often, and what starts and stops it.'
+
+also:
+  title: 'and also'
+  items:
+    - name: 'plot the logs'
+      text: 'MDF4 files from a unit or from any other tool, with cursors, several logs laid over one another, CSV export and live plots.'
+    - name: 'update the units'
+      text: 'Firmware updates over the air, through the app.'
+    - name: 'one project file'
+      text: 'Every unit of a car and all its settings in one file, which opens on the desktop and on a phone.'
+
+both:
+  title: 'at a desk, and beside the car'
+  lead: 'The desktop is for designing. The phone is for the moment you are standing at the car.'
+  desktop:
+    image: 'system-map.webp'
+    alt: 'The system map of a two-unit project on the desktop'
+    caption: "fig. 02 · on the desktop: a project's two units on one map"
+  phone:
+    image: 'gauge-clip.webp'
+    alt: "Gefera on a phone: swiping through a gauge's screens"
+    caption: 'fig. 03 · on a phone'
+
+stands:
+  title: 'where it stands'
+  items:
+    - name: 'Gefera for desktop'
+      text: 'For Windows, macOS and Linux. Built; the first release is not out yet.'
+      state: 'built'
+      on: true
+    - name: 'Gefera for phones'
+      text: 'For Android and iOS.'
+      state: 'in development'
+
+band: 'hear about the first release'

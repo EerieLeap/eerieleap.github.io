@@ -1,0 +1,94 @@
+# One workflow. A pull request is checked; a merge to main, a request from the releases repository and a nightly run are
+# checked the same way and then published to GitHub Pages.
+name: site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [release-published]
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: fetch the firmware docs at their pins
+        run: pnpm docs:fetch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm check
+      - run: pnpm lint
+      - run: pnpm test:unit
+      - run: pnpm i18n:status
+      - name: build, in English
+        run: pnpm build
+      - name: the stretch test, in a language that is not one
+        run: |
+          pnpm i18n:pseudo
+          pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  publish:
+    name: publish
+    needs: check
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: the services the site plugs into
+        # The site never goes live with a form that leads nowhere: a missing endpoint stops the publish, not the check.
+        run: |
+          test -n "$PUBLIC_WAITLIST_ENDPOINT" || { echo "PUBLIC_WAITLIST_ENDPOINT is not set (README.md, The waitlist)"; exit 1; }
+        env:
+          PUBLIC_WAITLIST_ENDPOINT: ${{ vars.PUBLIC_WAITLIST_ENDPOINT }}
+      - run: pnpm docs:fetch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm build
+        env:
+          PUBLIC_WAITLIST_ENDPOINT: ${{ vars.PUBLIC_WAITLIST_ENDPOINT }}
+          PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deploy
+        uses: actions/deploy-pages@v4

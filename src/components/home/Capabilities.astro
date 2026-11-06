@@ -1,0 +1,29 @@
+---
+import { Section } from '@/components/ui';
+import type { Home } from '@/content/types';
+
+interface Props {
+  can: Home['can'];
+}
+
+const { can } = Astro.props;
+---
+
+<Section id="can" title={can.title}>
+  <dl class="flex flex-col border-b border-soft">
+    {can.items.map((item) => (
+      <div class="flex flex-wrap items-baseline gap-x-11 gap-y-1 border-t border-soft py-[17px]">
+        <dt class="h-item flex-[0_0_230px]">{item.name}</dt>
+        <dd class="flex-[1_1_420px] text-[15px] text-dim">
+          {item.text}
+          {item.planned && (
+            <span class="label ml-1.5 inline-flex items-center gap-[7px] border border-line px-[9px] py-[3px] whitespace-nowrap text-ink">
+              <span aria-hidden="true" class="size-2 rounded-full border border-ink" />
+              {can.planned}
+            </span>
+          )}
+        </dd>
+      </div>
+    ))}
+  </dl>
+</Section>

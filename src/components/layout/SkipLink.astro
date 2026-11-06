@@ -1,0 +1,17 @@
+---
+// The first thing the keyboard reaches: a way past the bar to the page's text. Seen only when it has the focus.
+import { useT } from '@/i18n';
+
+interface Props {
+  lang: string;
+}
+
+const t = useT(Astro.props.lang);
+---
+
+<a
+  href="#text"
+  class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-ink focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-ground"
+>
+  {t('site.skip')}
+</a>

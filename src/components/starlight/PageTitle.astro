@@ -1,0 +1,46 @@
+---
+// A docs page's title. A page fetched from a firmware repository also says where its text lives, since it is that
+// repository's and is edited there.
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import { langOf, useT } from '@/i18n';
+import { repo } from '@/lib/site';
+
+const { entry, locale } = Astro.locals.starlightRoute;
+const t = useT(langOf(locale));
+const source = entry.data.source;
+---
+
+<Default>
+  <slot />
+</Default>
+{source && (
+  <p class="source">
+    <span>{t('docs.source', { repo: source.repo, path: source.path })}</span>
+    <span class="at">{t('docs.sourceAt')}</span>
+    <a href={`${repo(source.repo)}/edit/main/${source.path}`}>{t('docs.edit')}</a>
+  </p>
+)}
+
+<style>
+  .source {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 1.25rem;
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--text-dim);
+  }
+  .at {
+    color: var(--text-faint);
+  }
+  .source a {
+    margin-inline-start: auto;
+    color: var(--ink);
+  }
+  .source a:hover {
+    color: var(--pip);
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import Band from '@/components/layout/Band.astro';
+import { Footer } from '@/components/layout/Footer';
+import { Nav } from '@/components/layout/Nav';
+import type { Seo } from '@/lib/seo';
+import type { NavKey } from '@/lib/site';
+import Base from './Base.astro';
+
+interface Props {
+  seo: Seo;
+  /** The bar's link that this page is. */
+  active?: NavKey;
+  /** The band's heading where it is not the usual one, or false for a page that ends without the band. */
+  band?: string | false;
+  /** What the band lists beside its form. */
+  reasons?: string[];
+  /** For a page whose top holds the bar itself, as the front page's does over its artwork. */
+  ownBar?: boolean;
+}
+
+const { seo, active, band, reasons, ownBar = false } = Astro.props;
+---
+
+<Base seo={seo}>
+  {!ownBar && <Nav lang={seo.lang} active={active} path={seo.path} />}
+  <slot name="top" />
+  <main id="text" class="numbered">
+    <slot />
+  </main>
+  {band !== false && <Band lang={seo.lang} path={seo.path} title={band} reasons={reasons} />}
+  <Footer lang={seo.lang} path={seo.path} year={new Date().getFullYear()} />
+</Base>

@@ -1,0 +1,87 @@
+---
+import { Footer } from '@/components/layout/Footer';
+import { Nav } from '@/components/layout/Nav';
+import SkipLink from '@/components/layout/SkipLink.astro';
+import { defaultLocale, href, locales, tagOf } from '@/i18n';
+import Base from '@/layouts/Base.astro';
+import { copy } from '@/lib/content';
+import { picture } from '@/lib/images';
+
+// The page for an address that has nothing. The host serves this one file for every such address, so it holds every
+// language's few sentences and shows the one the address starts with, English when it can't tell.
+const still = await picture('ink.webp', [960, 1600]);
+const pages = await Promise.all(locales.map(async (lang) => ({ lang, page: await copy('notFound', lang) })));
+const english = pages.find((one) => one.lang === defaultLocale)?.page ?? pages[0]!.page;
+const year = new Date().getFullYear();
+---
+
+<Base
+  seo={{
+    title: english.title,
+    description: english.description,
+    path: '/404/',
+    lang: defaultLocale,
+    langs: [defaultLocale],
+    noindex: true,
+  }}
+  ownSkip
+>
+  {pages.map(({ lang, page }) => (
+    <div data-language={lang} lang={tagOf(lang)} hidden={lang !== defaultLocale}>
+      <SkipLink lang={lang} />
+      <Nav lang={lang} path="/" />
+      <main id="text">
+        <section class="relative flex min-h-[560px] flex-col justify-end overflow-hidden">
+          <img
+            src={still.src}
+            srcset={still.srcSet}
+            sizes="100vw"
+            width={still.width}
+            height={still.height}
+            alt=""
+            aria-hidden="true"
+            class="absolute inset-0 size-full object-cover opacity-80"
+          />
+          <div aria-hidden="true" class="veil absolute inset-0" />
+          <div class="wrap relative flex flex-col gap-5 pt-[120px] pb-16">
+            <p class="label text-dim">{page.code}</p>
+            <h1 class="h-display">{page.heading}</h1>
+            <p class="max-w-[520px] text-lg text-lead">{page.lead}</p>
+          </div>
+        </section>
+        <div class="wrap pt-11 pb-16">
+          <div class="flex flex-wrap gap-px border border-line bg-line">
+            {page.ways.map((way) => (
+              <a
+                href={href(lang, way.to)}
+                class="flex flex-[1_1_220px] flex-col gap-1.5 bg-ground px-5 pt-[18px] pb-5 text-ink no-underline"
+              >
+                <span class="text-xl font-semibold tracking-[-0.03em]">{way.title}</span>
+                <span class="text-sm text-dim">{way.text}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </main>
+      <Footer lang={lang} path="/" year={year} />
+    </div>
+  ))}
+</Base>
+
+<script is:inline>
+  // Shows the language the address starts with, if the site has it.
+  (() => {
+    const wanted = location.pathname.split('/')[1];
+    const blocks = document.querySelectorAll('[data-language]');
+    const match = Array.from(blocks).find((block) => block.dataset.language === wanted);
+    if (!match) return;
+    blocks.forEach((block) => (block.hidden = block !== match));
+    document.documentElement.lang = match.lang;
+  })();
+</script>
+
+<style>
+  .veil {
+    background: linear-gradient(90deg, rgb(12 12 12 / 0.94) 0%, rgb(12 12 12 / 0.8) 42%, rgb(12 12 12 / 0.1) 80%);
+  }
+</style>

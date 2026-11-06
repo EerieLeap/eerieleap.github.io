@@ -1,0 +1,10 @@
+dist/
+dist-stretch/
+.astro/
+pnpm-lock.yaml
+src/content/docs/docs/firmware/
+src/i18n/dict/en-xa.ts
+src/content/pages/en-xa/
+src/content/legal/en-xa/
+playwright-report/
+test-results/

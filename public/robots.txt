@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eerieleap.com/sitemap-index.xml

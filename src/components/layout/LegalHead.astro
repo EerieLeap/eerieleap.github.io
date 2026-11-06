@@ -1,0 +1,18 @@
+---
+// The top of a legal page: quieter than PageHead, with nothing beside it.
+interface Props {
+  crumbs: string;
+  title: string;
+  lead: string;
+}
+
+const { crumbs, title, lead } = Astro.props;
+---
+
+<header class="border-b border-soft">
+  <div class="wrap flex flex-col gap-[18px] pt-[68px] pb-[52px]">
+    <p class="label text-dim">{crumbs}</p>
+    <h1 class="text-[clamp(34px,4.4vw,60px)] leading-none font-medium tracking-[-0.04em]">{title}</h1>
+    <p class="max-w-[640px] text-[17px] text-lead">{lead}</p>
+  </div>
+</header>

@@ -1,0 +1,46 @@
+---
+import { PageHead, Rows, Section } from '@/components/ui';
+import { langOf, localePaths, locales } from '@/i18n';
+import Marketing from '@/layouts/Marketing.astro';
+import { copy } from '@/lib/content';
+import { organization } from '@/lib/seo';
+
+// About, with contact. There is no address to write to: questions go to Discussions and problems to the repositories.
+export const getStaticPaths = localePaths;
+
+const lang = langOf(Astro.params.lang);
+const page = await copy('about', lang);
+---
+
+<Marketing
+  seo={{
+    title: page.title,
+    description: page.description,
+    path: '/about/',
+    lang,
+    langs: locales,
+    jsonLd: [organization],
+  }}
+>
+  <PageHead crumbs={page.crumbs} title={page.heading} lead={page.lead} />
+  <Section title={page.project.title}>
+    <div class="flex flex-wrap gap-x-16 gap-y-7">
+      <div class="prose max-w-[560px] flex-[1_1_420px]">
+        {page.project.left.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+      <div class="prose max-w-[460px] flex-[1_1_340px]">
+        {page.project.right.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </Section>
+  <Section title={page.parts.title} paper>
+    <Rows items={page.parts.items} lang={lang} paper />
+  </Section>
+  <Section id="contact" title={page.contact.title} tight>
+    <Rows items={page.contact.items} lang={lang} />
+  </Section>
+</Marketing>

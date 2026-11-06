@@ -1,0 +1,40 @@
+---
+import { Icon, Section } from '@/components/ui';
+import type { Home } from '@/content/types';
+
+interface Props {
+  system: Home['system'];
+}
+
+const { system } = Astro.props;
+// What goes in, the units, and what comes out: three columns with an arrow between, stacked on a narrow page.
+const columns = [
+  { ...system.in, grow: 'flex-1', box: 'border border-ground px-5 pt-[18px] pb-5', quiet: 'text-paper-dim' },
+  { ...system.units, grow: 'flex-[1.15]', box: 'bg-ground px-5 pt-[18px] pb-5 text-ink', quiet: 'text-lead' },
+  { ...system.out, grow: 'flex-1', box: 'border border-ground px-5 pt-3.5 pb-4', quiet: 'text-paper-dim' },
+];
+---
+
+<Section id="system" title={system.title} paper>
+  <div class="flex flex-col items-stretch gap-4 wide:flex-row">
+    {columns.map((column, index) => (
+      <>
+        {index > 0 && <Icon name="arrow" className="flex-none rotate-90 self-center wide:rotate-0" />}
+        <div class:list={['flex min-w-0 flex-col gap-2.5', column.grow]}>
+          <p class="label mb-1 text-paper-dim">{column.label}</p>
+          {column.items.map((item) => (
+            <div class:list={['flex flex-auto flex-col gap-1.5', column.box]}>
+              <h3 class="h-item">{item.title}</h3>
+              <p class:list={['text-sm', column.quiet]}>{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </>
+    ))}
+  </div>
+  <div class="mt-4 flex flex-wrap items-baseline gap-x-7 gap-y-1.5 border border-dashed border-ground px-5 pt-[18px] pb-5">
+    <h3 class="h-item">{system.app.title}</h3>
+    <p class="flex-[1_1_320px] text-sm text-paper-dim">{system.app.text}</p>
+  </div>
+  <p class="label mt-[18px] text-paper-dim">{system.caption}</p>
+</Section>

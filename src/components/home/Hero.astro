@@ -1,0 +1,57 @@
+---
+import { InkSketch } from '@/components/art/InkSketch';
+import { EmailForm } from '@/components/forms/EmailForm';
+import { Nav } from '@/components/layout/Nav';
+import { Button } from '@/components/ui';
+import type { Home } from '@/content/types';
+import { WAITLIST_ENDPOINT } from '@/lib/env';
+import { picture } from '@/lib/images';
+import { formWords } from '@/lib/words';
+
+interface Props {
+  hero: Home['hero'];
+  lang: string;
+}
+
+const { hero, lang } = Astro.props;
+const still = await picture('ink.webp', [960, 1600, 2400]);
+---
+
+<header class="relative flex min-h-[860px] flex-col">
+  <InkSketch client:idle still={still} />
+  <div aria-hidden="true" class="veil absolute inset-0"></div>
+  <Nav lang={lang} path="/" />
+  <div class="relative mt-auto flex max-w-[1040px] flex-col gap-[26px] px-gutter pt-[120px] pb-[92px]">
+    <p class="label flex items-center gap-[9px] tracking-[0.02em] text-ink">
+      <span aria-hidden="true" class="size-2 rounded-full bg-pip"></span>
+      {hero.status}
+    </p>
+    <h1 class="h-display">{hero.heading}</h1>
+    <p class="max-w-[600px] text-lg text-lead">{hero.lead}</p>
+    <div class="flex flex-wrap items-start gap-2">
+      <div class="min-w-0 flex-[0_1_480px]">
+        <EmailForm client:idle words={formWords(lang)} endpoint={WAITLIST_ENDPOINT} lang={lang} page="/" note />
+      </div>
+      <Button href="#does" secondary className="mt-[22px] bg-ground/50">
+        {hero.more}
+      </Button>
+    </div>
+  </div>
+  <p class="label absolute right-0 bottom-0 border-t border-l border-soft bg-ground px-3.5 py-[9px] text-ink">
+    {hero.caption}
+  </p>
+</header>
+
+<style>
+  /* The artwork is never under text without a veil that keeps the text's contrast; a narrow page has text all across. */
+  .veil {
+    background:
+      linear-gradient(90deg, rgb(12 12 12 / 0.94) 0%, rgb(12 12 12 / 0.82) 40%, rgb(12 12 12 / 0) 74%),
+      linear-gradient(0deg, rgb(12 12 12 / 0.6) 0%, rgb(12 12 12 / 0) 42%);
+  }
+  @media (max-width: 860px) {
+    .veil {
+      background: linear-gradient(90deg, rgb(12 12 12 / 0.92) 0%, rgb(12 12 12 / 0.8) 60%, rgb(12 12 12 / 0.58) 100%);
+    }
+  }
+</style>

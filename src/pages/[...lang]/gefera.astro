@@ -1,0 +1,71 @@
+---
+import { Button, Cells, Figure, PageHead, Rows, Section } from '@/components/ui';
+import { href, langOf, localePaths, locales } from '@/i18n';
+import Marketing from '@/layouts/Marketing.astro';
+import { copy } from '@/lib/content';
+import { picture, pictured } from '@/lib/images';
+import { organization } from '@/lib/seo';
+
+// Gefera, the app. No price and no download until a release exists: until then its action is the waitlist.
+export const getStaticPaths = localePaths;
+
+const lang = langOf(Astro.params.lang);
+const page = await copy('gefera', lang);
+const tour = await picture(page.tour.image);
+const desktop = await picture(page.both.desktop.image);
+const phone = await picture(page.both.phone.image);
+const does = await pictured(page.does.items);
+const stands = page.stands.items.map((item) => ({ name: item.name, text: item.text, mark: item.state, on: item.on }));
+---
+
+<Marketing
+  seo={{
+    title: page.title,
+    description: page.description,
+    path: '/gefera/',
+    lang,
+    langs: locales,
+    jsonLd: [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'Gefera',
+        applicationCategory: 'UtilitiesApplication',
+        operatingSystem: 'Windows, macOS, Linux, Android, iOS',
+        publisher: { '@id': organization['@id'] },
+      },
+    ],
+  }}
+  active="nav.app"
+  band={page.band}
+>
+  <PageHead crumbs={page.crumbs} title={page.heading} lead={page.lead}>
+    <Fragment slot="actions">
+      <Button href={href(lang, '/waitlist/')}>{page.actions.join}</Button>
+      <Button href="#does" secondary>
+        {page.actions.more}
+      </Button>
+    </Fragment>
+  </PageHead>
+  <div class="wrap pt-14 pb-[76px]">
+    <Figure picture={tour} alt={page.tour.alt} caption={page.tour.caption} eager />
+  </div>
+  <Section id="does" title={page.does.title}>
+    <Cells items={does} lang={lang} min={320} />
+  </Section>
+  <Section title={page.also.title} tight>
+    <Rows items={page.also.items} lang={lang} />
+  </Section>
+  <Section title={page.both.title} lead={page.both.lead}>
+    <div class="flex flex-wrap items-stretch gap-4">
+      <div class="min-w-0 flex-[3_1_520px]">
+        <Figure picture={desktop} alt={page.both.desktop.alt} caption={page.both.desktop.caption} />
+      </div>
+      <div class="min-w-0 flex-[1_1_240px]">
+        <Figure picture={phone} alt={page.both.phone.alt} caption={page.both.phone.caption} phone />
+      </div>
+    </div>
+  </Section>
+  <Section title={page.stands.title} tight>
+    <Rows items={stands} lang={lang} />
+  </Section>
+</Marketing>

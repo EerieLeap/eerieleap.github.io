@@ -1,0 +1,43 @@
+---
+import AppShowcase from '@/components/home/AppShowcase.astro';
+import Capabilities from '@/components/home/Capabilities.astro';
+import Depth from '@/components/home/Depth.astro';
+import Hero from '@/components/home/Hero.astro';
+import Jobs from '@/components/home/Jobs.astro';
+import Status from '@/components/home/Status.astro';
+import SystemPicture from '@/components/home/SystemPicture.astro';
+import Verbs from '@/components/home/Verbs.astro';
+import { langOf, localePaths, locales } from '@/i18n';
+import Marketing from '@/layouts/Marketing.astro';
+import { copy } from '@/lib/content';
+import { organization, website } from '@/lib/seo';
+
+// The front page. Its sections are src/components/home, in the order they are here; its words are home.yaml.
+export const getStaticPaths = localePaths;
+
+const lang = langOf(Astro.params.lang);
+const page = await copy('home', lang);
+---
+
+<Marketing
+  seo={{
+    title: page.title,
+    description: page.description,
+    path: '/',
+    lang,
+    langs: locales,
+    home: true,
+    jsonLd: [organization, website],
+  }}
+  ownBar
+  reasons={page.follow.reasons}
+>
+  <Hero slot="top" hero={page.hero} lang={lang} />
+  <Verbs verbs={page.verbs} />
+  <Jobs jobs={page.jobs} />
+  <SystemPicture system={page.system} />
+  <AppShowcase app={page.app} lang={lang} />
+  <Depth deep={page.deep} lang={lang} />
+  <Capabilities can={page.can} />
+  <Status status={page.status} />
+</Marketing>

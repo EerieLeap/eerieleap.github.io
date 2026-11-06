@@ -1,0 +1,24 @@
+/* The values every page is made of. Plain custom properties, so that the marketing pages (through Tailwind's theme in
+   global.css) and the docs (through Starlight's variables in docs.css) read the same ones. */
+:root {
+  --ground: #0c0c0c;
+  --panel: #121211;
+  --ink: #f2f2ef;
+  --text-lead: #d6d6d2;
+  --text-prose: #dededa;
+  --text-dim: #c9c9c5;
+  --text-faint: #9a9a96;
+  --line: #3f3f3c;
+  --line-soft: rgb(242 242 239 / 0.2);
+  --field-edge: #8a8a86;
+  --pip: #ff4a00;
+  --paper: #f2f2ef;
+  --paper-dim: #454543;
+  --paper-line: #bdbdb8;
+
+  --font-text: 'Archivo Variable', system-ui, sans-serif;
+  --font-label: 'Martian Mono Variable', ui-monospace, monospace;
+
+  --gutter: clamp(20px, 5vw, 72px);
+  --page-width: 1360px;
+}

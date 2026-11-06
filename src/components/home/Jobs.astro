@@ -1,0 +1,22 @@
+---
+import { Section } from '@/components/ui';
+import type { Home } from '@/content/types';
+
+interface Props {
+  jobs: Home['jobs'];
+}
+
+const { jobs } = Astro.props;
+---
+
+<Section id="does" title={jobs.title}>
+  <div class="flex flex-col border-b border-soft">
+    {jobs.items.map((job) => (
+      <article class="flex flex-wrap items-baseline gap-x-11 gap-y-1.5 border-t border-soft py-6">
+        <p class="label flex-[0_0_150px] text-dim">{job.where}</p>
+        <h3 class="h-row flex-[1_1_280px]">{job.title}</h3>
+        <p class="flex-[1.4_1_380px] text-[15px] text-dim">{job.text}</p>
+      </article>
+    ))}
+  </div>
+</Section>

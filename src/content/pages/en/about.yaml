@@ -1,0 +1,37 @@
+title: 'About'
+description: 'Eerie Leap is one platform for what a dash, a data logger, a sensor box and a CAN gateway do today as four products. The project, where each part stands, and how to reach it.'
+
+crumbs: 'eerie leap / about'
+heading: 'about Eerie Leap'
+lead: 'Eerie Leap is a data logger and dash platform for cars and other machines on CAN bus: units that read sensors and CAN messages, run your math and Lua on them, log in MDF4 and show the values on a gauge, with open-source firmware and an app, Gefera, to set it all up.'
+
+project:
+  title: 'the project'
+  left:
+    - 'A dash, a data logger, a box that adds sensors to the bus and a gateway between two buses are four products today, each with its own software. They do the same few things: read, compute, show, log and send.'
+    - 'Eerie Leap is one platform for all four. What a unit does is a configuration, made in an app and written to the unit, so that the same unit is a dash in one car and a logger in the next.'
+  right:
+    - 'It is built in the open. The firmware is open source, and the build is written up as it goes: one update a month to the waitlist.'
+    - 'Cars come first.'
+
+parts:
+  title: 'the parts, and where each stands'
+  items:
+    - name: 'firmware'
+      text: 'Runs on the prototypes, and in a simulator with no hardware.'
+    - name: 'hardware units'
+      text: 'In development.'
+    - name: 'Gefera for desktop'
+      text: 'Built; no release yet.'
+    - name: 'Gefera for phones'
+      text: 'In development.'
+
+contact:
+  title: 'contact'
+  items:
+    - name: 'questions and help'
+      text: '[Discussions on GitHub](https://github.com/orgs/EerieLeap/discussions), where the answers stay for the next person.'
+    - name: 'a problem in the firmware'
+      text: 'An issue on the repository it is in: [rt_core](https://github.com/EerieLeap/rt_core/issues), [rt_daq](https://github.com/EerieLeap/rt_daq/issues) or [rt_gauge](https://github.com/EerieLeap/rt_gauge/issues).'
+    - name: 'news'
+      text: '[The waitlist](/waitlist/): one update a month.'

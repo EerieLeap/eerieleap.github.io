@@ -1,0 +1,69 @@
+title: 'Open-source firmware'
+description: 'The firmware an Eerie Leap unit runs is open source under Apache 2.0, built on Zephyr, and runs in a simulator on your computer. Its repositories and docs.'
+
+crumbs: 'eerie leap / firmware'
+heading: 'open-source firmware'
+lead: 'The firmware an Eerie Leap unit runs is open source, under the Apache 2.0 license. It is built on Zephyr, so it is not tied to one chip, and all of it runs in a simulator on your computer.'
+actions:
+  docs: 'read the docs'
+  github: 'GitHub'
+codeTitle: 'a sensor script, from the firmware docs'
+
+does:
+  title: 'what it does'
+  items:
+    - title: 'read'
+      text: 'Analog and digital inputs, and the frames and signals of every module on the bus.'
+    - title: 'compute'
+      text: 'Calibration tables, math expressions and Lua scripts, running on the unit.'
+    - title: 'show'
+      text: "Gauge screens built from a configuration, drawn on the unit's display."
+    - title: 'log'
+      text: 'To MDF4 files, the format analysis tools already open.'
+    - title: 'send'
+      text: 'Any value back onto the bus, in messages you lay out.'
+
+runs:
+  title: 'where it runs'
+  items:
+    - title: 'on the units'
+      text: 'One code base, built as the application of each kind of unit.'
+    - title: 'on other hardware'
+      text: 'It is a Zephyr application, with its hardware described by a device tree. A port is a board file, not a rewrite.'
+    - title: 'in a simulator'
+      text: 'The same firmware builds for your computer and runs there with no hardware attached.'
+
+repositories:
+  title: 'the repositories'
+  lead: 'All on GitHub, under the Eerie Leap organization.'
+  items:
+    - name: 'rt_core'
+      text: 'The core every unit shares: sensors, CAN, logging, scripting, configuration and updates.'
+    - name: 'rt_daq'
+      text: 'The application of the unit that reads and logs.'
+    - name: 'rt_gauge'
+      text: 'The application of the unit with a display.'
+    - name: 'expression_engine'
+      text: 'The math expression language sensors are written in.'
+    - name: 'zephyr_lua'
+      text: 'Lua, as a Zephyr module.'
+
+docs:
+  title: 'the docs'
+  lead: 'Kept beside the code they describe, and shown here as they are.'
+
+part:
+  title: 'take part'
+  items:
+    - title: 'report a problem'
+      text: 'Issues are open on each repository.'
+      more: 'Open an issue'
+      to: 'issues'
+    - title: 'change something'
+      text: 'Pull requests are welcome on every repository.'
+      more: 'See the code'
+      to: 'code'
+    - title: 'ask'
+      text: 'Questions about the firmware go to Discussions.'
+      more: 'Open Discussions'
+      to: 'discussions'

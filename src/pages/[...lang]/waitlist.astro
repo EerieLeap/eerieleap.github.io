@@ -1,0 +1,39 @@
+---
+import { EmailForm } from '@/components/forms/EmailForm';
+import { Survey } from '@/components/forms/Survey';
+import { Cells, Inline, PageHead, Rows, Section } from '@/components/ui';
+import { langOf, localePaths, locales } from '@/i18n';
+import Marketing from '@/layouts/Marketing.astro';
+import { copy } from '@/lib/content';
+import { WAITLIST_ENDPOINT } from '@/lib/env';
+import { formWords } from '@/lib/words';
+
+// The Waitlist page. Its questions are a section that is not there until an address has joined (Survey).
+export const getStaticPaths = localePaths;
+
+const lang = langOf(Astro.params.lang);
+const page = await copy('waitlist', lang);
+const letters = 'abcdef';
+const gets = page.gets.items.map((item, index) => ({ ...item, mark: letters[index] }));
+---
+
+<Marketing
+  seo={{ title: page.title, description: page.description, path: '/waitlist/', lang, langs: locales }}
+  band={false}
+>
+  <PageHead crumbs={page.crumbs} status={page.status} title={page.heading} lead={page.lead}>
+    <div slot="aside" class="border border-line bg-panel px-[26px] pt-6 pb-[26px]">
+      <p class="label mb-4 text-dim">{page.card}</p>
+      <EmailForm client:idle words={formWords(lang)} endpoint={WAITLIST_ENDPOINT} lang={lang} page="/waitlist/">
+        <Inline text={page.cardNote} lang={lang} />
+      </EmailForm>
+    </div>
+  </PageHead>
+  <Section title={page.gets.title}>
+    <Cells items={gets} lang={lang} />
+  </Section>
+  <Survey client:idle words={page.survey} endpoint={WAITLIST_ENDPOINT} />
+  <Section title={page.address.title} tight>
+    <Rows items={page.address.items} lang={lang} />
+  </Section>
+</Marketing>

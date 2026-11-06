@@ -1,0 +1,35 @@
+---
+import { getEntry, render } from 'astro:content';
+import LegalHead from '@/components/layout/LegalHead.astro';
+import { defaultLocale, formatDate, langOf, localePaths, locales } from '@/i18n';
+import Marketing from '@/layouts/Marketing.astro';
+
+// Privacy: running text, src/content/legal/<language>/privacy.md.
+export const getStaticPaths = localePaths;
+
+const lang = langOf(Astro.params.lang);
+const entry = (await getEntry('legal', `${lang}/privacy`)) ?? (await getEntry('legal', `${defaultLocale}/privacy`));
+if (!entry) throw new Error('No privacy text (src/content/legal/en/privacy.md)');
+const page = entry.data;
+const { Content } = await render(entry);
+---
+
+<Marketing
+  seo={{ title: page.title, description: page.description, path: '/legal/privacy/', lang, langs: locales }}
+  band={false}
+>
+  <LegalHead crumbs={page.crumbs} title={page.heading} lead={page.lead} />
+  <div class="wrap flex flex-wrap gap-x-[72px] gap-y-8 pt-14 pb-24">
+    <dl class="flex flex-[0_1_220px] flex-col gap-2.5">
+      <dt class="label text-faint">{page.changedLabel}</dt>
+      <dd class="text-[15px]">
+        <time datetime={page.changed.toISOString().slice(0, 10)}>{formatDate(lang, page.changed)}</time>
+      </dd>
+      <dt class="label mt-3.5 text-faint">{page.whoLabel}</dt>
+      <dd class="text-[15px] text-dim">{page.who}</dd>
+    </dl>
+    <div class="prose min-w-0 flex-[1_1_480px]">
+      <Content />
+    </div>
+  </div>
+</Marketing>

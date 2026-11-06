@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import { Button, Cells, CodeBlock, PageHead, Rows, Section } from '@/components/ui';
+import { href, langOf, localePaths, locales } from '@/i18n';
+import Marketing from '@/layouts/Marketing.astro';
+import { copy } from '@/lib/content';
+import { licenseOf } from '@/lib/firmware';
+import { organization } from '@/lib/seo';
+import { DISCUSSIONS, GITHUB, repo } from '@/lib/site';
+import { LUA_EXAMPLE } from '@/lib/words';
+
+// The Firmware page. Its list of docs is the fetched firmware pages themselves, and each repository's license is the pin's.
+export const getStaticPaths = localePaths;
+
+const lang = langOf(Astro.params.lang);
+const page = await copy('firmware', lang);
+
+const TWO_DIGITS = 2;
+const FIRMWARE_DOCS = 'docs/firmware/';
+const docs = (await getCollection('docs', (entry) => entry.id.startsWith(FIRMWARE_DOCS))).sort(
+  (a, b) => (a.data.sidebar.order ?? 0) - (b.data.sidebar.order ?? 0),
+);
+const repositories = page.repositories.items.map((item) => ({ ...item, mark: licenseOf(item.name) }));
+const ways = { issues: `${repo('rt_core')}/issues`, code: GITHUB, discussions: DISCUSSIONS };
+const part = page.part.items.map((item) => ({
+  title: item.title,
+  text: item.text,
+  more: { label: item.more, to: ways[item.to] },
+}));
+---
+
+<Marketing
+  seo={{
+    title: page.title,
+    description: page.description,
+    path: '/firmware/',
+    lang,
+    langs: locales,
+    jsonLd: [
+      {
+        '@type': 'SoftwareSourceCode',
+        name: 'Eerie Leap firmware',
+        codeRepository: repo('rt_core'),
+        license: 'https://www.apache.org/licenses/LICENSE-2.0',
+        programmingLanguage: 'C++',
+        author: { '@id': organization['@id'] },
+      },
+    ],
+  }}
+  active="nav.firmware"
+>
+  <PageHead crumbs={page.crumbs} title={page.heading} lead={page.lead} wide>
+    <Fragment slot="actions">
+      <Button href={href(lang, '/docs/')}>{page.actions.docs}</Button>
+      <Button href={GITHUB} secondary>
+        {page.actions.github}
+      </Button>
+    </Fragment>
+    <CodeBlock slot="aside" title={page.codeTitle} code={LUA_EXAMPLE} />
+  </PageHead>
+  <Section title={page.does.title}>
+    <Cells items={page.does.items} lang={lang} min={200} />
+  </Section>
+  <Section title={page.runs.title}>
+    <Cells items={page.runs.items} lang={lang} />
+  </Section>
+  <Section title={page.repositories.title} lead={page.repositories.lead}>
+    <Rows items={repositories} lang={lang} />
+  </Section>
+  <Section title={page.docs.title} lead={page.docs.lead}>
+    <!-- The pages' names are the firmware's own, in English in every language: the reference is never translated. -->
+    <div class="flex flex-wrap gap-px border border-line bg-line" lang="en" translate="no">
+      {docs.map((doc, index) => (
+        <a
+          href={href(lang, `/${doc.id}/`)}
+          class="flex flex-[1_1_270px] items-baseline gap-3 bg-ground px-[18px] py-[15px] text-[15.5px] text-ink no-underline"
+        >
+          <span aria-hidden="true" class="label text-faint">
+            {String(index + 1).padStart(TWO_DIGITS, '0')}
+          </span>
+          {doc.data.title}
+        </a>
+      ))}
+    </div>
+  </Section>
+  <Section title={page.part.title} tight>
+    <Cells items={part} lang={lang} />
+  </Section>
+</Marketing>

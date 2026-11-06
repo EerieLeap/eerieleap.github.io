@@ -1,0 +1,68 @@
+---
+import { useT } from '@/i18n';
+import { picture } from '@/lib/images';
+import { WAITLIST_ENDPOINT } from '@/lib/env';
+import { formWords } from '@/lib/words';
+import { EmailForm } from '@/components/forms/EmailForm';
+
+interface Props {
+  lang: string;
+  path: string;
+  title?: string;
+  reasons?: string[];
+}
+
+const { lang, path, title, reasons } = Astro.props;
+const t = useT(lang);
+const still = await picture('ink.webp', [960, 1600]);
+const letters = 'abcdef';
+---
+
+<section id="follow" class="relative overflow-hidden border-t border-soft">
+  <img
+    src={still.src}
+    srcset={still.srcSet}
+    sizes="100vw"
+    width={still.width}
+    height={still.height}
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    decoding="async"
+    class="absolute inset-0 size-full -scale-x-100 object-cover opacity-60"
+  />
+  <div aria-hidden="true" class="band-veil absolute inset-0"></div>
+  <div class="wrap relative flex flex-wrap items-end gap-x-16 gap-y-7 pt-[88px] pb-[72px]">
+    <h2 class="flex-[1.3_1_380px] text-[clamp(44px,7vw,96px)] leading-[0.9] font-semibold tracking-[-0.05em] hyphens-auto">
+      {title ?? t('band.title')}
+    </h2>
+    <div class="flex max-w-[480px] flex-[1_1_360px] flex-col gap-5">
+      {reasons && (
+        <ol>
+          {reasons.map((reason, index) => (
+            <li class="flex items-baseline gap-4 border-t border-ink/35 py-[11px] last:border-b">
+              <span aria-hidden="true" class="label text-dim">
+                {letters[index]}
+              </span>
+              {reason}
+            </li>
+          ))}
+        </ol>
+      )}
+      <EmailForm
+        client:visible
+        words={formWords(lang)}
+        endpoint={WAITLIST_ENDPOINT}
+        lang={lang}
+        page={path}
+        note={!reasons}
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .band-veil {
+    background: linear-gradient(270deg, rgb(12 12 12 / 0.9) 0%, rgb(12 12 12 / 0.78) 46%, rgb(12 12 12 / 0.6) 100%);
+  }
+</style>

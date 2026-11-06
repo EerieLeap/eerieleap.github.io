@@ -1,0 +1,162 @@
+title: 'a CAN data logger and dash platform you can script'
+description: "Eerie Leap reads your sensors and the car's CAN bus, runs your math and Lua on them, logs in MDF4 and shows the values on a gauge you design. Open-source firmware."
+
+hero:
+  status: 'in development'
+  heading: 'a CAN data logger and dash platform you can script, with open-source firmware.'
+  lead: "Eerie Leap reads your sensors and the car's CAN bus, runs your own math and Lua on them, logs in MDF4, shows the values on a gauge you design and sends them back onto the bus."
+  more: 'see what it does'
+  caption: 'fig. 01 · ink in a noise field, drawn live'
+
+verbs:
+  - title: 'read'
+    text: "Your sensors, and every module on the car's bus."
+  - title: 'compute'
+    text: 'Calibration, math and Lua, running on the unit.'
+  - title: 'show'
+    text: 'On a gauge with the screens you designed.'
+  - title: 'log'
+    text: 'In MDF4, the format analysis tools already open.'
+  - title: 'send'
+    text: 'Back onto the bus, as new or rewritten messages.'
+
+jobs:
+  title: 'one platform, four jobs'
+  items:
+    - where: 'on the dash'
+      title: 'a dash of your own design'
+      text: 'Take values from the ECU, or from any other module on the bus, and put them in front of you on screens you lay out yourself.'
+    - where: 'on the track'
+      title: 'a data logger'
+      text: 'Pressures, temperatures and bus traffic, logged in MDF4. Plot the logs in Gefera, or in the analysis tool you use now.'
+    - where: 'on the bus'
+      title: 'a sensor hub'
+      text: 'Add the sensors a car lacks and send their values onto the bus, for the ECU, a dash or a logger that is already there.'
+    - where: 'between buses'
+      title: 'a CAN gateway'
+      text: 'Sit between two buses or two modules: pass messages through, rewrite them with a script, or translate one side for the other.'
+
+system:
+  title: 'how it fits together'
+  caption: 'fig. 02 · the system in one picture'
+  in:
+    label: 'in'
+    items:
+      - title: 'your sensors'
+        text: 'Pressures, temperatures, levels and switches, on analog and digital inputs.'
+      - title: "the car's buses"
+        text: 'The ECU and every other module that talks on CAN. LIN is planned.'
+  units:
+    label: 'the units'
+    items:
+      - title: 'a unit that reads, computes and logs'
+        text: 'Calibrates each input, runs your math and Lua, writes the log and talks on the bus.'
+      - title: 'a unit that shows'
+        text: 'A gauge with the screens you designed, and touch controls of its own.'
+  out:
+    label: 'out'
+    items:
+      - title: 'a gauge you design'
+        text: 'Dials, bars, readouts and charts.'
+      - title: 'MDF4 logs'
+        text: 'To plot in Gefera or in your own tools.'
+      - title: 'messages on the bus'
+        text: "New ones, or the car's own, rewritten."
+  app:
+    title: 'Gefera, the app'
+    text: 'Sets up every unit over Bluetooth, from a computer or a phone, and plots the logs.'
+
+app:
+  title: 'set up in an app, not in code'
+  lead: 'Every input, message, screen and logging rule is a setting. Change it in Gefera, write it to the unit over Bluetooth, and it runs. There is no firmware to build.'
+  desktop:
+    image: 'gauge-tour.webp'
+    alt: "Gefera on the desktop: a tachometer on the gauge editor's canvas, its needle climbing until the red zone lights up, then the gauge's other screens"
+    caption: 'fig. 03 · Gefera on the desktop: designing a gauge'
+  phone:
+    image: 'sensors-clip.webp'
+    alt: "Gefera on a phone: the sensors of a unit, then one sensor's calibration table and its curve"
+    caption: 'fig. 04 · and on a phone'
+  cells:
+    - image: 'crop-map.webp'
+      alt: 'Part of a system map: sensors, math expressions and the wires between them'
+      title: 'the whole system on one map'
+      text: 'Every unit, input, message, sensor and gauge widget, and the wires between them. Draw a wire to connect two things.'
+    - image: 'crop-sensors.webp'
+      alt: "A sensor's calibration: a table of voltages and temperatures, and the curve through them"
+      title: 'a calibration for every sensor'
+      text: "Type in the points from a sensor's data sheet and see the curve the unit will read it by."
+    - image: 'crop-logging.webp'
+      alt: 'Logging settings: how often values are written and how large a file may grow'
+      title: 'logging, the way you want it'
+      text: 'Pick the sensors, how often they are written and what starts a log. Then plot the logs in the same app.'
+
+deep:
+  title: 'as deep as you want to go'
+  steps:
+    - title: 'configure'
+      text: 'Inputs, calibration tables, bus messages, gauge screens and logging are all settings in the app.'
+    - title: 'add math'
+      text: 'An expression on any sensor: scale it, combine it with others, or turn a value into a warning.'
+      samples: ['x * 4 + 1.6', 'temp > 90 ? 1 : 0']
+    - title: 'script it'
+      text: "Lua on a sensor or on a bus message, running on the unit, for whatever a setting can't say."
+    - title: 'change the firmware'
+      text: 'The firmware is open source. Developers can build on it, port it to other hardware and run it in a simulator.'
+      more: 'the firmware, and its docs'
+  codeTitle: 'step 3 · a sensor script, from the firmware docs'
+
+can:
+  title: 'what it can do'
+  planned: 'LIN · planned'
+  items:
+    - name: 'inputs'
+      text: 'Analog and digital sensors: pressures, temperatures, levels and switches. Every analog input has a calibration table of its own.'
+    - name: 'buses'
+      text: 'CAN bus: read and send messages from any module in the car, with DBC files in and out.'
+      planned: true
+    - name: 'computed values'
+      text: 'Values worked out from other values, with math or a script, then shown, logged and sent like any sensor.'
+    - name: 'gauge'
+      text: 'Screens you design yourself: dials, bars, readouts, charts, images and touch controls.'
+    - name: 'logging'
+      text: 'MDF4 files, which analysis tools open. You choose what is logged, how often, and what starts and stops a log.'
+    - name: 'gateway'
+      text: 'Sits between two buses: reads on one, sends on the other, and can change a message on the way.'
+    - name: 'network'
+      text: 'Connect several units together and they organize themselves into one network.'
+    - name: 'setup'
+      text: 'Wireless, over Bluetooth, from a computer or a phone.'
+    - name: 'log plots'
+      text: 'Plot your logs in the app: zoom in, measure, compare runs, and watch values live.'
+    - name: 'updates'
+      text: 'Over-the-air firmware updates, through the app.'
+
+status:
+  title: 'where it stands'
+  note: 'Eerie Leap is still being built, and this site went up before it was finished. It grows as the product does.'
+  items:
+    - state: 'running'
+      icon: 'chip'
+      title: 'firmware'
+      text: 'What this page describes runs on it today, except where it says planned.'
+    - state: 'built'
+      icon: 'desktop'
+      title: 'Gefera for desktop'
+      text: 'Windows, macOS and Linux. Its first release is being prepared.'
+    - state: 'in development'
+      icon: 'phone'
+      pending: true
+      title: 'Gefera for phones'
+      text: 'For Android and iOS.'
+    - state: 'in development'
+      icon: 'unit'
+      pending: true
+      title: 'hardware'
+      text: 'The units are being designed. The waitlist sees them first.'
+
+follow:
+  reasons:
+    - 'one update a month'
+    - 'a say in what the hardware gets'
+    - 'first access to early units'

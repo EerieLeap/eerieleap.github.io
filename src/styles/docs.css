@@ -1,0 +1,100 @@
+/* The docs in the site's look, quieter: long pages are for reading. Starlight is styled through its own variables, set
+   from the site's tokens; nothing here knows a color of its own. */
+@import '@fontsource-variable/archivo/wght.css';
+@import '@fontsource-variable/martian-mono/wght.css';
+@import './tokens.css';
+
+:root {
+  --sl-font: var(--font-text);
+  --sl-font-mono: var(--font-label);
+
+  --sl-color-bg: var(--ground);
+  --sl-color-bg-nav: var(--ground);
+  --sl-color-bg-sidebar: var(--ground);
+  --sl-color-bg-inline-code: var(--panel);
+  --sl-color-black: var(--ground);
+  --sl-color-white: var(--ink);
+  --sl-color-gray-1: var(--ink);
+  --sl-color-gray-2: var(--text-prose);
+  --sl-color-gray-3: var(--text-faint);
+  --sl-color-gray-4: #5a5a56;
+  --sl-color-gray-5: var(--line);
+  --sl-color-gray-6: var(--panel);
+  --sl-color-accent-low: #1b1b1a;
+  --sl-color-accent: var(--ink);
+  --sl-color-accent-high: var(--ink);
+  --sl-color-text-accent: var(--ink);
+  --sl-color-hairline: var(--line);
+  --sl-color-hairline-light: var(--line);
+  --sl-color-hairline-shade: var(--line);
+
+  --sl-text-code: 0.8125rem;
+  --sl-content-width: 46rem;
+  --sl-nav-height: 4.25rem;
+  color-scheme: dark;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+h1 {
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.sl-markdown-content a:hover,
+.sidebar-content a:hover {
+  color: var(--pip);
+}
+
+/* The site is square: no rounded corners on what Starlight draws. */
+.sl-markdown-content code,
+.sl-markdown-content pre,
+.expressive-code .frame,
+.expressive-code pre,
+starlight-toc a,
+.sidebar-content a,
+site-search button,
+.pagination-links a,
+.starlight-aside {
+  border-radius: 0 !important;
+}
+
+.sl-markdown-content table {
+  font-size: 0.9rem;
+}
+.sl-markdown-content :is(th, td) {
+  border-color: var(--line);
+}
+.sl-markdown-content th {
+  font-family: var(--font-label);
+  font-size: 0.66rem;
+  font-weight: 400;
+  color: var(--text-dim);
+}
+
+/* The page a reader is on: a line beside its name, as the site's bar marks its own. */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+  background: var(--panel);
+  box-shadow: inset 2px 0 0 var(--ink);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* A note is a quiet box with a line beside it, in every one of Starlight's kinds: the site has one accent, and it is not here. */
+.starlight-aside {
+  --sl-color-asides-text-accent: var(--ink);
+  --sl-color-asides-border: var(--ink);
+  border-inline-start-width: 2px;
+  background: var(--panel);
+}
+
+/* A long name in a table breaks rather than pushing the table past the page. */
+.sl-markdown-content table code {
+  overflow-wrap: anywhere;
+}
