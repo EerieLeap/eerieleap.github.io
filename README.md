@@ -6,7 +6,7 @@ The web site of Eerie Leap: a CAN data logger and dash platform you can script, 
 
 ```sh
 corepack pnpm install        # pnpm, at the version package.json names
-pnpm dev                     # http://localhost:4321, with the firmware docs fetched first
+pnpm dev                     # http://localhost:4321
 pnpm build && pnpm preview   # the site as it is published
 ```
 
@@ -28,7 +28,7 @@ Node 22 or later. The `.env.example` file lists the two values the site plugs se
 Every text a visitor reads lives in one of two places, never in a component or a page:
 
 - **`src/i18n/dict/<language>.ts`**: the interface's words (the bar, the buttons, the forms and their messages, the footer). English (`en.ts`) defines the keys; another language is a file with the same keys, and a missing key fails the type check.
-- **`src/content/`**: the pages' copy. A marketing page is `pages/<language>/<page>.yaml`, checked against its schema in `content/schemas` (a missing sentence or a misspelled key fails the build and says where). A legal page is `legal/<language>/<page>.md`. The docs are Starlight's, under `docs/docs/`.
+- **`src/content/`**: the pages' copy. A marketing page is `pages/<language>/<page>.yaml`, checked against its schema in `content/schemas` (a missing sentence or a misspelled key fails the build and says where). A legal page is `legal/<language>/<page>.md`. The docs are Starlight's, under `docs/docs/<group>/`: `start` (what the system is and how it works), `configure` (what each part of a configuration is and what you set) and `scripting` (the math expression engine and Lua scripts). They are written for the person who uses a unit; the firmware's developer reference stays in rt_core's repository and the site links to it.
 
 A linter rule (`eslint.config.js`) refuses text in markup, and the stretch test (below) catches what a linter can't see. That is what makes a later language a set of files and nothing else.
 
@@ -49,7 +49,7 @@ src/
   sketches/      the ink sketch, pure, drawn by the island and by scripts/render-stills.ts alike
   styles/        tokens.css (the values), global.css (Tailwind over them), docs.css (Starlight over them)
   assets/        the app's captures and the sketch's still
-scripts/         fetch the firmware docs, write the stretch language, render the still and the marks, screenshots
+scripts/         write the stretch language, read the firmware's licenses, render the still and the marks, screenshots
 tests/           Playwright: the stretch test and the smoke test, over the pages listed in tests/pages.ts
 ```
 
@@ -65,7 +65,7 @@ Design tokens are plain custom properties in `src/styles/tokens.css`; Tailwind's
 ## Adding a language
 
 1. `src/i18n/dict/<code>.ts`, every key of `en.ts` in that language; `localeNames` in `src/i18n/index.ts` gets its name as its speakers write it.
-2. `src/content/pages/<code>/` and `src/content/legal/<code>/`, a file for each English one, and the docs' Start pages under `src/content/docs/<code>/docs/start/`; Starlight's own words in `src/content/i18n/<code>.json`.
+2. `src/content/pages/<code>/` and `src/content/legal/<code>/`, a file for each English one, and the docs under `src/content/docs/<code>/docs/`; Starlight's own words in `src/content/i18n/<code>.json`.
 3. `pnpm i18n:status` says what is missing. The language appears in the bar and the footer by itself once its dictionary file exists, so the file is added last, when the pages are whole.
 
 Addresses keep their English words after the language's code (`/de/firmware/`). A page a language does not have is served in English under its address, with a line that says so, by Starlight for the docs and by `copy()`'s fallback for a marketing page.
@@ -74,9 +74,9 @@ Addresses keep their English words after the language's code (`/de/firmware/`). 
 
 Before any translation exists, `pnpm i18n:pseudo` writes a language that is not one: English with accents and a third more length (`scripts/lib/pseudo.ts`). `tests/stretch.spec.ts` opens every launch page in it at a phone's and a desktop's width and fails on a page that is wider than the window, or that still shows a plain English word. Names that are never translated (`src/i18n/names.ts`), code, dates and what is marked `translate="no"` are allowed.
 
-## The firmware docs
+## The firmware's licenses
 
-`/docs/firmware/` is rt_core's documentation and the expression language's, shown as they are. `scripts/fetch-firmware-docs.ts` fetches them at the commits pinned in `firmware-docs.json` before each build, adds each page's title and description (from the docs' own index), rewrites their links to one another and to the source tree, and writes them to `src/content/docs/docs/firmware/`, which is not committed. `pnpm pins:update` moves the pins to each repository's latest commit and reads its license, and the Licenses page shows what the pins say.
+The Firmware and Licenses pages say what license each firmware repository is under. That is a claim the site makes, so it is not looked up at build time: `firmware.json` holds it, `pnpm licenses:update` reads it again from GitHub, and the change is committed and seen.
 
 ## The waitlist
 

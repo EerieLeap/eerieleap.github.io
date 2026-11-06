@@ -19,11 +19,11 @@ The words the rest of the docs use, each defined once.
 
 **Sensor.** A value with a name. It may be measured on an input, read from the CAN bus, or worked out from other sensors. Everything else on the unit refers to a sensor by its name.
 
-**Calibration table.** The points that turn an input's voltage into a value, such as volts into degrees.
+**Calibration table.** The lookup table (LUT) that turns an input's voltage into a value, such as volts into degrees: a few points, and the curve the unit draws through them.
 
-**Expression.** A formula on a sensor, over its own value and other sensors.
+**Math expression.** A formula on a sensor, over its own value and other sensors, worked out by the firmware's math expression engine.
 
-**Script.** A Lua file a sensor or a CAN message runs, for what a formula can't say.
+**Lua script.** A Lua file a sensor or a CAN message runs, for what a formula can't say.
 
 **CAN message and signal.** A message is one frame on the bus; a signal is one value inside it. A unit can receive a message and read its signals as sensors, or send a message with its own sensors in it.
 

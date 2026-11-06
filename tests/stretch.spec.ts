@@ -6,7 +6,7 @@ import { LAUNCH_PAGES, WIDTHS } from './pages';
 // (scripts/pseudo-locale.ts), at a phone's and a desktop's width. A page that overflows sideways, or still shows a plain
 // English word, would break in a real second language, so it fails here first.
 //
-// The docs are left out of the word check: the firmware's pages are English by design, and a docs page without a
+// The docs are left out of the word check: their code and their examples are English by design, and a docs page without a
 // translation is shown in English with a line that says so.
 
 const LANG = 'en-xa';

@@ -48,14 +48,6 @@ export const collections = {
   /** The docs' own interface words, by language: src/content/i18n/<code>.json. English is Starlight's own, so en.json is empty. */
   i18n: defineCollection({ loader: i18nLoader(), schema: i18nSchema() }),
 
-  /** The docs: Starlight's. docs/start is written here; docs/firmware is fetched from the firmware's repositories. */
-  docs: defineCollection({
-    loader: docsLoader(),
-    schema: docsSchema({
-      extend: z.object({
-        /** For a page fetched from a firmware repository: where its text lives. */
-        source: z.object({ repo: z.string(), path: z.string(), commit: z.string() }).optional(),
-      }),
-    }),
-  }),
+  /** The docs: Starlight's, under docs/docs by group (start, configure, scripting), another language's under docs/<code>/docs. */
+  docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
 };

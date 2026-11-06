@@ -98,3 +98,14 @@ site-search button,
 .sl-markdown-content table code {
   overflow-wrap: anywhere;
 }
+
+/* The Lua logo on the Lua page, beside its first lines, linking to lua.org as lua.org asks. */
+.lua-mark {
+  float: inline-end;
+  margin: 0.25rem 0 1rem 1.5rem;
+  line-height: 0;
+}
+.lua-mark img {
+  width: 72px;
+  height: 72px;
+}

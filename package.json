@@ -11,7 +11,6 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "prebuild": "tsx scripts/fetch-firmware-docs.ts",
     "preview": "astro preview",
     "check": "astro check",
     "lint": "eslint . && prettier --check .",
@@ -19,11 +18,10 @@
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "test": "vitest run && tsx scripts/pseudo-locale.ts && astro build && playwright test",
-    "docs:fetch": "tsx scripts/fetch-firmware-docs.ts",
-    "pins:update": "tsx scripts/fetch-firmware-docs.ts --update-pins",
     "i18n:status": "tsx scripts/i18n-status.ts",
     "i18n:pseudo": "tsx scripts/pseudo-locale.ts",
     "i18n:pseudo:remove": "tsx scripts/pseudo-locale.ts --remove",
+    "licenses:update": "tsx scripts/update-licenses.ts",
     "stills": "tsx scripts/render-stills.ts",
     "marks": "tsx scripts/render-marks.ts",
     "shots": "tsx scripts/screenshots.ts"
@@ -55,6 +53,7 @@
     "globals": "^17.14.0",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.2",
+    "shiki": "^4.6.0",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",

@@ -11,13 +11,13 @@ The quickest way to see how an Eerie Leap system works is to follow one value th
 
 The pressure sender is wired to an analog input of a unit. All the unit sees there is a voltage.
 
-A **calibration table** turns that voltage into a pressure: a few points from the sender's data sheet, and the unit reads everything between them off the curve through the points.
+A **calibration table**, a lookup table (LUT), turns that voltage into a pressure: a few points from the sender's data sheet, and the unit reads everything between them off the curve through the points.
 
 The result is a **sensor**: a value with a name, `oil_pressure`, and a unit of measure.
 
 ## 2. The number is worked on
 
-A sensor can have a **math expression**, for what a table can't say: a scale, an offset, or a value made of other sensors. A warning that is on while the engine runs with too little pressure is such a sensor:
+A sensor can have a **math expression**, worked out by the firmware's math expression engine, for what a table can't say: a scale, an offset, or a value made of other sensors. A warning that is on while the engine runs with too little pressure is such a sensor:
 
 ```
 rpm > 1500 && oil_pressure < 1.5

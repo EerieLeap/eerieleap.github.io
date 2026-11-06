@@ -23,7 +23,7 @@ does:
     - image: 'crop-sensors.webp'
       alt: "A sensor's calibration: a table of voltages and temperatures, and the curve through them"
       title: 'set up sensors'
-      text: 'Analog inputs with calibration tables, digital inputs, CAN signals, math and Lua.'
+      text: 'Analog inputs with calibration tables (LUTs), digital inputs, CAN signals, math expressions and Lua scripts.'
     - image: 'can-channel.webp'
       cut: 'can'
       alt: 'A CAN channel with its messages and their signals'
@@ -59,8 +59,8 @@ both:
   lead: 'The desktop is for designing. The phone is for the moment you are standing at the car.'
   desktop:
     image: 'system-map.webp'
-    alt: 'The system map of a two-unit project on the desktop'
-    caption: "fig. 02 · on the desktop: a project's two units on one map"
+    alt: "The System Map on the desktop: a unit's sensors, the math expressions over them and the logger they go to, wired together"
+    caption: 'fig. 02 · on the desktop: the System Map, from the sensors to the logger'
   phone:
     image: 'gauge-clip.webp'
     alt: "Gefera on a phone: swiping through a gauge's screens"

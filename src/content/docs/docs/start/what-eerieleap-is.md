@@ -18,7 +18,7 @@ Units come in kinds. One kind reads and logs. Another has a display and shows a 
 Every unit runs the same open-source firmware. It does not know what car it is in: it reads a **configuration** and does what that says.
 
 :::note
-The firmware has its own reference, written for developers, under **firmware** in the menu. You don't need it to use a unit.
+These docs are for using a unit. The firmware's own reference, written for whoever changes it, stays with its code on [GitHub](https://github.com/EerieLeap/rt_core/tree/main/docs).
 :::
 
 ## The app
@@ -36,4 +36,4 @@ Four things, each set up on its own page of the app:
 
 ## Where to go next
 
-[How the parts fit](/docs/start/how-the-parts-fit/) follows one value from a sensor to a gauge. [Concepts](/docs/start/concepts/) defines the words the rest of the docs use.
+[How the parts fit](/docs/start/how-the-parts-fit/) follows one value from a sensor to a gauge, and [Concepts](/docs/start/concepts/) defines the words the rest of the docs use. **Configuring** has a page for each part of a configuration, and **Scripting** the math expression engine and Lua.

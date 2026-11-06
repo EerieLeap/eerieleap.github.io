@@ -32,7 +32,7 @@ export const firmware = z.object({
   does: listOf(titled),
   runs: listOf(titled),
   repositories: listOf(row),
-  docs: z.object({ title: text, lead: text }),
+  docs: listOf(titled.extend({ more: text, to: z.enum(['docs', 'reference']) })),
   part: listOf(titled.extend({ more: text, to: z.enum(['issues', 'code', 'discussions']) })),
 });
 
@@ -58,7 +58,7 @@ export const about = z.object({
   contact: listOf(row),
 });
 
-/** Licenses (src/pages/[...lang]/legal/licenses.astro). The firmware's licenses themselves come from firmware-docs.json. */
+/** Licenses (src/pages/[...lang]/legal/licenses.astro). The firmware's licenses themselves come from firmware.json. */
 export const licenses = z.object({
   ...meta,
   ...head,

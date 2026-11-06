@@ -4,6 +4,7 @@ import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, envField } from 'astro/config';
 import en from './src/i18n/dict/en';
+import { CODE_THEME } from './src/lib/code-theme';
 
 // A language is a file in src/i18n/dict. English alone at launch; the stretch test's build adds en-xa.
 const languages = readdirSync(new URL('./src/i18n/dict', import.meta.url))
@@ -27,7 +28,6 @@ export default defineConfig({
       components: {
         Header: './src/components/starlight/Header.astro',
         Footer: './src/components/starlight/Footer.astro',
-        PageTitle: './src/components/starlight/PageTitle.astro',
         ThemeProvider: './src/components/starlight/ThemeProvider.astro',
         ThemeSelect: './src/components/starlight/ThemeSelect.astro',
       },
@@ -42,10 +42,11 @@ export default defineConfig({
       }),
       sidebar: [
         { label: en['docs.group.start'], items: [{ autogenerate: { directory: 'docs/start' } }] },
-        { label: en['docs.group.firmware'], items: [{ autogenerate: { directory: 'docs/firmware' } }] },
+        { label: en['docs.group.configure'], items: [{ autogenerate: { directory: 'docs/configure' } }] },
+        { label: en['docs.group.scripting'], items: [{ autogenerate: { directory: 'docs/scripting' } }] },
       ],
-      // The firmware's docs hold device tree snippets, which the highlighter does not know: shown as C.
-      expressiveCode: { shiki: { langAlias: { dts: 'c' } } },
+      // The docs' code in the site's own theme (src/lib/code-theme.ts), the one the marketing pages' code block uses.
+      expressiveCode: { themes: [CODE_THEME], useStarlightDarkModeSwitch: false, useStarlightUiThemeColors: true },
       lastUpdated: true,
       pagination: true,
       credits: false,

@@ -1,6 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
-import { Button, Cells, CodeBlock, PageHead, Rows, Section } from '@/components/ui';
+import { Button, Cells, PageHead, Rows, Section } from '@/components/ui';
+import CodeBlock from '@/components/ui/CodeBlock.astro';
 import { href, langOf, localePaths, locales } from '@/i18n';
 import Marketing from '@/layouts/Marketing.astro';
 import { copy } from '@/lib/content';
@@ -9,18 +9,20 @@ import { organization } from '@/lib/seo';
 import { DISCUSSIONS, GITHUB, repo } from '@/lib/site';
 import { LUA_EXAMPLE } from '@/lib/words';
 
-// The Firmware page. Its list of docs is the fetched firmware pages themselves, and each repository's license is the pin's.
+// The Firmware page. Each repository's license is what firmware.json says of it; the user docs are the site's own and
+// the developer reference stays with the code.
 export const getStaticPaths = localePaths;
 
 const lang = langOf(Astro.params.lang);
 const page = await copy('firmware', lang);
 
-const TWO_DIGITS = 2;
-const FIRMWARE_DOCS = 'docs/firmware/';
-const docs = (await getCollection('docs', (entry) => entry.id.startsWith(FIRMWARE_DOCS))).sort(
-  (a, b) => (a.data.sidebar.order ?? 0) - (b.data.sidebar.order ?? 0),
-);
 const repositories = page.repositories.items.map((item) => ({ ...item, mark: licenseOf(item.name) }));
+const docsWays = { docs: '/docs/', reference: `${repo('rt_core')}/tree/main/docs` };
+const docs = page.docs.items.map((item) => ({
+  title: item.title,
+  text: item.text,
+  more: { label: item.more, to: docsWays[item.to] },
+}));
 const ways = { issues: `${repo('rt_core')}/issues`, code: GITHUB, discussions: DISCUSSIONS };
 const part = page.part.items.map((item) => ({
   title: item.title,
@@ -68,20 +70,7 @@ const part = page.part.items.map((item) => ({
     <Rows items={repositories} lang={lang} />
   </Section>
   <Section title={page.docs.title} lead={page.docs.lead}>
-    <!-- The pages' names are the firmware's own, in English in every language: the reference is never translated. -->
-    <div class="flex flex-wrap gap-px border border-line bg-line" lang="en" translate="no">
-      {docs.map((doc, index) => (
-        <a
-          href={href(lang, `/${doc.id}/`)}
-          class="flex flex-[1_1_270px] items-baseline gap-3 bg-ground px-[18px] py-[15px] text-[15.5px] text-ink no-underline"
-        >
-          <span aria-hidden="true" class="label text-faint">
-            {String(index + 1).padStart(TWO_DIGITS, '0')}
-          </span>
-          {doc.data.title}
-        </a>
-      ))}
-    </div>
+    <Cells items={docs} lang={lang} />
   </Section>
   <Section title={page.part.title} tight>
     <Cells items={part} lang={lang} />

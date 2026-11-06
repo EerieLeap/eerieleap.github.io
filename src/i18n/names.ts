@@ -39,4 +39,5 @@ export const NAMES = [
   'React',
   'Starlight',
   'CSV',
+  'LUT',
 ] as const;

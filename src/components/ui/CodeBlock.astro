@@ -1,0 +1,31 @@
+---
+// A block of code with a small heading, highlighted at build time by Shiki in the site's own theme (src/lib/code-theme.ts),
+// so that it needs no script and reads the same in every language: code is not copy.
+import { Code } from 'astro:components';
+import { CODE_THEME } from '@/lib/code-theme';
+
+interface Props {
+  title: string;
+  code: string;
+  lang?: 'lua';
+}
+
+const { title, code, lang = 'lua' } = Astro.props;
+---
+
+<div class="code flex flex-col border border-line bg-panel">
+  <p class="label border-b border-line px-4 py-2.5 text-dim">{title}</p>
+  <Code code={code} lang={lang} theme={CODE_THEME} />
+</div>
+
+<style>
+  /* The highlighter writes the theme's background and color on the pre; the frame's panel is that background already. */
+  .code :global(pre) {
+    overflow-x: auto;
+    padding: 18px 22px 22px;
+    font-family: var(--font-label);
+    font-size: 12px;
+    line-height: 1.75;
+    background-color: var(--panel) !important;
+  }
+</style>

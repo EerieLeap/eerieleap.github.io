@@ -44,11 +44,9 @@ const en = {
 
   'band.title': 'follow the build',
 
-  'docs.source': 'from {repo} · {path}',
-  'docs.sourceAt': 'at the commit the site was built from',
-  'docs.edit': 'edit on GitHub',
   'docs.group.start': 'start',
-  'docs.group.firmware': 'firmware',
+  'docs.group.configure': 'configuring',
+  'docs.group.scripting': 'scripting',
 
   'offer.close': 'Close',
 } as const;

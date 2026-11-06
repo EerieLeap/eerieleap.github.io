@@ -85,7 +85,7 @@ app:
     - image: 'crop-sensors.webp'
       alt: "A sensor's calibration: a table of voltages and temperatures, and the curve through them"
       title: 'a calibration for every sensor'
-      text: "Type in the points from a sensor's data sheet and see the curve the unit will read it by."
+      text: "A lookup table (LUT) for each input: type in the points from a sender's data sheet and see the curve the unit reads it by."
     - image: 'crop-logging.webp'
       alt: 'Logging settings: how often values are written and how large a file may grow'
       title: 'logging, the way you want it'
@@ -97,7 +97,7 @@ deep:
     - title: 'configure'
       text: 'Inputs, calibration tables, bus messages, gauge screens and logging are all settings in the app.'
     - title: 'add math'
-      text: 'An expression on any sensor: scale it, combine it with others, or turn a value into a warning.'
+      text: 'A math expression on any sensor: scale it, combine it with others, or turn a value into a warning.'
       samples: ['x * 4 + 1.6', 'temp > 90 ? 1 : 0']
     - title: 'script it'
       text: "Lua on a sensor or on a bus message, running on the unit, for whatever a setting can't say."
@@ -111,12 +111,12 @@ can:
   planned: 'LIN · planned'
   items:
     - name: 'inputs'
-      text: 'Analog and digital sensors: pressures, temperatures, levels and switches. Every analog input has a calibration table of its own.'
+      text: 'Analog and digital sensors: pressures, temperatures, levels and switches. Every analog input has a calibration table (LUT) of its own.'
     - name: 'buses'
       text: 'CAN bus: read and send messages from any module in the car, with DBC files in and out.'
       planned: true
     - name: 'computed values'
-      text: 'Values worked out from other values, with math or a script, then shown, logged and sent like any sensor.'
+      text: 'Values worked out from other values, with a math expression or a Lua script, then shown, logged and sent like any sensor.'
     - name: 'gauge'
       text: 'Screens you design yourself: dials, bars, readouts, charts, images and touch controls.'
     - name: 'logging'

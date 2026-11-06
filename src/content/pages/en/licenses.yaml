@@ -15,7 +15,7 @@ firmware:
     - name: 'rt_gauge'
       text: 'The application of the unit with a display.'
     - name: 'expression_engine'
-      text: 'The math expression language.'
+      text: 'The math expression engine.'
     - name: 'zephyr_lua'
       text: 'Lua, as a Zephyr module.'
 

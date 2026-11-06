@@ -37,7 +37,6 @@ export default defineConfig(
       'playwright-report/',
       'test-results/',
       'screenshots/',
-      'src/content/docs/docs/firmware/',
       'src/i18n/dict/en-xa.ts',
     ],
   },

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.35 -1.35 2.7 2.7" role="img" aria-label="Lua">
+  <!-- The Lua logo, drawn from lua.org's public-domain PostScript program (lua-logo-nolabel.ps), in the site's two tones
+       in place of its navy and white. Graphic design by Alexandre Nakonechnyj; copyright 1998 Lua.org. Shown in proportion,
+       with a link to lua.org, as lua.org asks. -->
+  <circle cx="0" cy="0" r="1" fill="#f2f2ef"/>
+  <circle cx="0.4142" cy="-0.2929" r="0.2929" fill="#0c0c0c"/>
+  <circle cx="1" cy="-1" r="0.2929" fill="#f2f2ef"/>
+  <text x="0" y="0.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="0.9" fill="#0c0c0c">Lua</text>
+  <path d="M 1.152 -0.587 A 1.2929 1.2929 0 1 1 0.7042 -1.0843" fill="none" stroke="#9a9a96" stroke-width="0.03" stroke-dasharray="0.1128 0.1128"/>
+</svg>

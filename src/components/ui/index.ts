@@ -1,7 +1,6 @@
 // The parts every page is made of. None holds a word: text comes in from the dictionary (src/i18n) or a content file.
 export { Button } from './Button';
 export { Cells, type Cell } from './Cells';
-export { CodeBlock } from './CodeBlock';
 export { Figure } from './Figure';
 export { Icon, type IconName } from './Icon';
 export { Inline } from './Inline';

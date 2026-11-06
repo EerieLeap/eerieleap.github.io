@@ -9,7 +9,6 @@ playwright-report/
 !.env.example
 
 # Written by scripts, never by hand
-src/content/docs/docs/firmware/
 src/i18n/dict/en-xa.ts
 src/content/pages/en-xa/
 src/content/legal/en-xa/

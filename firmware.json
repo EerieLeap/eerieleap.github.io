@@ -1,0 +1,9 @@
+{
+  "repositories": {
+    "rt_core": { "license": "Apache-2.0" },
+    "expression_engine": { "license": "Apache-2.0" },
+    "rt_daq": { "license": "Apache-2.0" },
+    "rt_gauge": { "license": "Apache-2.0" },
+    "zephyr_lua": { "license": "Apache-2.0" }
+  }
+}

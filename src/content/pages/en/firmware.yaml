@@ -44,13 +44,22 @@ repositories:
     - name: 'rt_gauge'
       text: 'The application of the unit with a display.'
     - name: 'expression_engine'
-      text: 'The math expression language sensors are written in.'
+      text: 'The math expression engine a sensor computes with.'
     - name: 'zephyr_lua'
       text: 'Lua, as a Zephyr module.'
 
 docs:
   title: 'the docs'
-  lead: 'Kept beside the code they describe, and shown here as they are.'
+  lead: 'What you need to use a unit is on this site. What you need to change the firmware is beside its code.'
+  items:
+    - title: 'how it works, and how to set it up'
+      text: 'What a unit does with a value, what each part of a configuration is, and the math expressions and Lua scripts you can write.'
+      more: 'Read the docs'
+      to: 'docs'
+    - title: 'the developer reference'
+      text: "rt_core's own documentation: the subsystems, the protocols, the stored formats and the build, kept with the code and written for whoever changes it."
+      more: 'Open it on GitHub'
+      to: 'reference'
 
 part:
   title: 'take part'

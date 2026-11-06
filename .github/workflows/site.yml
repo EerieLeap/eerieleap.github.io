@@ -31,10 +31,6 @@ jobs:
           node-version-file: .node-version
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: fetch the firmware docs at their pins
-        run: pnpm docs:fetch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm check
       - run: pnpm lint
       - run: pnpm test:unit
@@ -80,9 +76,6 @@ jobs:
           test -n "$PUBLIC_WAITLIST_ENDPOINT" || { echo "PUBLIC_WAITLIST_ENDPOINT is not set (README.md, The waitlist)"; exit 1; }
         env:
           PUBLIC_WAITLIST_ENDPOINT: ${{ vars.PUBLIC_WAITLIST_ENDPOINT }}
-      - run: pnpm docs:fetch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
         env:
           PUBLIC_WAITLIST_ENDPOINT: ${{ vars.PUBLIC_WAITLIST_ENDPOINT }}

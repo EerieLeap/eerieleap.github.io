@@ -10,7 +10,8 @@ export const LAUNCH_PAGES = [
   { name: 'licenses', path: '/legal/licenses/' },
   { name: 'not-found', path: '/404.html' },
   { name: 'docs-start', path: '/docs/start/what-eerieleap-is/' },
-  { name: 'docs-firmware', path: '/docs/firmware/sensors/' },
+  { name: 'docs-configure', path: '/docs/configure/sensors/' },
+  { name: 'docs-scripting', path: '/docs/scripting/lua-scripts/' },
 ] as const;
 
 /** A phone, and a desktop. */
