@@ -1,5 +1,6 @@
 import { readdirSync } from 'node:fs';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, envField } from 'astro/config';
@@ -50,6 +51,20 @@ export default defineConfig({
       lastUpdated: true,
       pagination: true,
       credits: false,
+    }),
+    // Starlight's own sitemap, set up as Starlight sets it up (its languages), less the page that confirms a place on the
+    // waitlist: that one is opened from an email, not found. Starlight adds no sitemap of its own when one is here.
+    sitemap({
+      filter: (page) => !new URL(page).pathname.endsWith('/waitlist/confirm/'),
+      ...(languages.length > 0 && {
+        i18n: {
+          defaultLocale: 'root',
+          locales: {
+            root: 'en',
+            ...Object.fromEntries(languages.map((code) => [code, code === 'en-xa' ? 'en-XA' : code])),
+          },
+        },
+      }),
     }),
     react(),
   ],

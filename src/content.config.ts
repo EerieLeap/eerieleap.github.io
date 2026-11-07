@@ -4,7 +4,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { defineCollection } from 'astro:content';
 import { home } from './content/schemas/home';
-import { about, firmware, gefera, licenses, notFound, waitlist } from './content/schemas/pages';
+import { about, confirm, firmware, gefera, licenses, notFound, waitlist } from './content/schemas/pages';
 import { text } from './content/schemas/shared';
 
 // Every text a visitor reads is in one of these collections or in the dictionary (src/i18n), by language.
@@ -23,6 +23,7 @@ const page = <Schema extends z.ZodType>(file: string, schema: Schema) =>
 export const collections = {
   home: page('home', home),
   waitlist: page('waitlist', waitlist),
+  confirm: page('confirm', confirm),
   firmware: page('firmware', firmware),
   gefera: page('gefera', gefera),
   about: page('about', about),

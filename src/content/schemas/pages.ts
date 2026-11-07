@@ -23,6 +23,26 @@ export const waitlist = z.object({
   address: listOf(row),
 });
 
+/**
+ * Confirming a place on the waitlist (src/pages/[...lang]/waitlist/confirm.astro): the page the confirmation email links
+ * to. The confirming button's words, and what it says once the relay has answered.
+ */
+export const confirm = z.object({
+  ...meta,
+  ...head,
+  status: text,
+  card: text,
+  cardNote: text,
+  button: text,
+  sending: text,
+  again: text,
+  confirmed: text,
+  expired: text,
+  failed: text,
+  missing: text,
+  noscript: text,
+});
+
 /** Firmware (src/pages/[...lang]/firmware.astro). */
 export const firmware = z.object({
   ...meta,

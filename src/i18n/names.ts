@@ -29,6 +29,7 @@ export const NAMES = [
   'Linux',
   'Android',
   'iOS',
+  'JavaScript',
   'Archivo',
   'Martian Mono',
   'Omnibus-Type',

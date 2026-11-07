@@ -37,6 +37,7 @@ const en = {
   'form.joining': 'joining…',
   'form.note': 'One update a month from the build. Leave any time.',
   'form.invalid': 'That doesn’t look like an email address.',
+  'form.joined': 'You’re on the list. A welcome email is on its way to {email}.',
   'form.sent': 'Almost there. We sent a link to {email}: one click on it confirms your place.',
   'form.already': 'You’re already on the list, and nothing has changed.',
   'form.failed': 'That didn’t go through, and nothing was saved. Try again in a moment.',

@@ -11,6 +11,7 @@ export function formWords(lang: string): FormWords {
     joining: t('form.joining'),
     note: t('form.note'),
     invalid: t('form.invalid'),
+    joined: t('form.joined'),
     sent: t('form.sent'),
     already: t('form.already'),
     failed: t('form.failed'),

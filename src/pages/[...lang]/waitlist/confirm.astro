@@ -1,0 +1,53 @@
+---
+import { Confirm } from '@/components/forms/Confirm';
+import { Inline, PageHead } from '@/components/ui';
+import { langOf, localePaths, locales } from '@/i18n';
+import Marketing from '@/layouts/Marketing.astro';
+import { copy } from '@/lib/content';
+import { WAITLIST_ENDPOINT } from '@/lib/env';
+
+// Confirming a place on the waitlist: the page the confirmation email links to, with the relay's token after "#", so the
+// token never reaches a server or the analytics. Only a click confirms. Not in the bar, the footer or the sitemap
+// (astro.config.ts), and not for search engines.
+export const getStaticPaths = localePaths;
+
+const lang = langOf(Astro.params.lang);
+const page = await copy('confirm', lang);
+const words = {
+  button: page.button,
+  sending: page.sending,
+  again: page.again,
+  confirmed: page.confirmed,
+  failed: page.failed,
+};
+---
+
+<Marketing
+  seo={{
+    title: page.title,
+    description: page.description,
+    path: '/waitlist/confirm/',
+    lang,
+    langs: locales,
+    noindex: true,
+  }}
+  band={false}
+>
+  <PageHead crumbs={page.crumbs} status={page.status} title={page.heading} lead={page.lead}>
+    <div slot="aside" class="flex flex-col gap-2.5 border border-line bg-panel px-[26px] pt-6 pb-[26px]">
+      <p class="label mb-1.5 text-dim">{page.card}</p>
+      <Confirm client:load words={words} endpoint={WAITLIST_ENDPOINT}>
+        <Fragment slot="expired">
+          <Inline text={page.expired} lang={lang} />
+        </Fragment>
+        <Fragment slot="missing">
+          <Inline text={page.missing} lang={lang} />
+        </Fragment>
+      </Confirm>
+      <noscript class="text-[13.5px] text-ink">{page.noscript}</noscript>
+      <p class="text-[13.5px] text-dim">
+        <Inline text={page.cardNote} lang={lang} />
+      </p>
+    </div>
+  </PageHead>
+</Marketing>

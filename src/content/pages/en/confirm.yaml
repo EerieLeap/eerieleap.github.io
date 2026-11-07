@@ -1,0 +1,18 @@
+title: 'Confirm your place'
+description: 'The last step of joining the Eerie Leap waitlist.'
+
+crumbs: 'eerie leap / waitlist'
+status: 'almost there'
+heading: 'confirm your place'
+lead: 'One click and you’re on the waitlist: one update a month from the build, and a say in what the hardware gets.'
+card: 'the waitlist'
+cardNote: 'One update a month. Leave any time. [How your address is kept](/legal/privacy/).'
+
+button: 'confirm my place'
+sending: 'confirming…'
+again: 'try again'
+confirmed: 'You’re on the list. A welcome email is on its way.'
+expired: 'This link has expired, or its address has left the list. [Join again](/waitlist/) for a new one.'
+failed: 'That didn’t go through. Try again in a moment.'
+missing: 'This page confirms a place on the waitlist, from the link in its email. [Join the waitlist](/waitlist/) to get one.'
+noscript: 'Confirming needs JavaScript, which is off in this browser.'

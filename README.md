@@ -39,7 +39,7 @@ src/
   components/
     ui/          the parts every page is made of: Button, Section, Cells, Rows, Steps, Figure, Shot, CodeBlock, Inline, Icon
     layout/      the bar (Nav), the footer, the band with the form, the skip link, a legal page's head
-    forms/       the islands: the waitlist form and the questions after joining
+    forms/       the islands: the waitlist form, the questions after joining, and the button that confirms a place
     art/         the hero's sketch as an island
     home/        the front page's sections, one file each, in the order they are on the page
     starlight/   what the docs override of Starlight: header, footer, page title, no theme switch
@@ -53,6 +53,7 @@ src/
   assets/        the app's captures and the sketch's still
 scripts/         write the stretch language, read the firmware's licenses, render the still and the marks, screenshots
 tests/           Playwright: the stretch test and the smoke test, over the pages listed in tests/pages.ts
+email/           the waitlist's welcome email, as the custom HTML Sender takes; its two fonts are in public/email/
 ```
 
 Design tokens are plain custom properties in `src/styles/tokens.css`; Tailwind's theme and Starlight's variables are both set from them, and a component never names a color or a font of its own.
@@ -85,15 +86,22 @@ The Firmware and Licenses pages say what license each firmware repository is und
 The form (`src/components/forms/EmailForm.tsx`) posts to `PUBLIC_WAITLIST_ENDPOINT`, a relay in front of the list service, which holds the service's token and keeps no copy of the address. The relay is not in this repository. What the form expects of it:
 
 ```
-POST <endpoint>            { "email": "...", "page": "/firmware/", "lang": "en" }
-  200 { "status": "pending" }   the address was taken and a confirmation sent
+POST <endpoint>            { "email": "...", "page": "/firmware/", "lang": "en", "message": "" }
+  200 { "status": "joined" }    on the list now; the welcome email is on its way
   200 { "status": "already" }   it was on the list already
+  200 { "status": "pending" }   it left the list before: a link to come back was sent, and it waits for the click
   any other answer              the form says it could not be sent, and nothing was saved
 POST <endpoint>/answers    { "email": "...", "answers": { "<question id>": "..." | ["..."] } }
   200                           the answers are in
+POST <endpoint>/confirm    { "token": "..." }
+  200 { "status": "confirmed" } the address is on the list (or already was); the welcome email is on its way
+  200 { "status": "expired" }   the link is too old, or its address has left the list: join again
+  any other answer              the page says it could not confirm
 ```
 
 The questions and their ids are in `src/content/pages/en/waitlist.yaml`. Without a script the form posts the same fields, form-encoded, to the endpoint. The publish job refuses to run without the endpoint, so the site never goes live with a form that leads nowhere.
+
+Joining is single opt-in: an address is on the list at once. `message` is a field people never see and simple bots fill in; the relay answers such a join as any other and keeps nothing. Only an address that left the list comes back through a click, since anyone can type it into the form: the relay emails it a link to `/waitlist/confirm/` with its token after `#`, so the token never reaches a server or the analytics (Cloudflare's beacon drops what follows `#` before it sends). The page (`src/components/forms/Confirm.tsx`) confirms only when its button is clicked, so a mail scanner that opens the link confirms nothing. It is in no menu, not in the sitemap, and marked `noindex`.
 
 ## Pictures and marks
 

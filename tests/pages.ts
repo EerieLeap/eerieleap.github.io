@@ -3,6 +3,7 @@
 export const LAUNCH_PAGES = [
   { name: 'home', path: '/' },
   { name: 'waitlist', path: '/waitlist/' },
+  { name: 'confirm', path: '/waitlist/confirm/' },
   { name: 'firmware', path: '/firmware/' },
   { name: 'gefera', path: '/gefera/' },
   { name: 'about', path: '/about/' },

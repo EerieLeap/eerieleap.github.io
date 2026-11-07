@@ -2,7 +2,7 @@ import { getEntry, type CollectionEntry } from 'astro:content';
 import { defaultLocale } from '@/i18n';
 
 /** The marketing pages, each a collection of its own with its own schema (src/content.config.ts). */
-export type PageName = 'home' | 'waitlist' | 'firmware' | 'gefera' | 'about' | 'licenses' | 'notFound';
+export type PageName = 'home' | 'waitlist' | 'confirm' | 'firmware' | 'gefera' | 'about' | 'licenses' | 'notFound';
 
 /**
  * A page's copy in a language, typed by the page's schema. A launch page exists in every language the site has; English

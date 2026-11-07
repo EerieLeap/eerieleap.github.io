@@ -4,7 +4,7 @@ description: 'What this site keeps: your email address if you give it, and nothi
 crumbs: 'eerie leap / privacy'
 heading: 'privacy'
 lead: 'The short version: this site keeps your email address if you give it, counts page views without cookies, and does nothing else.'
-changed: 2026-11-06
+changed: 2026-11-07
 changedLabel: 'last changed'
 whoLabel: 'who this is'
 who: 'Eerie Leap, United States'
@@ -12,7 +12,7 @@ who: 'Eerie Leap, United States'
 
 ## What we keep
 
-**Your email address**, if you join the waitlist, and with it the page you joined from and the time.
+**Your email address**, if you join the waitlist, and with it the page you joined from, its language and the time.
 
 **Your answers**, if you fill in the questions after joining. None of them is required.
 
@@ -36,7 +36,7 @@ That is why there is no cookie banner: there are no cookies.
 
 ## Leaving
 
-Every update has a link that takes you off the list at once. To have your address and answers deleted, or to get a copy of them, reply to the confirmation email or to any update.
+Every update has a link that takes you off the list at once. To have your address and answers deleted, or to get a copy of them, reply to the welcome email or to any update.
 
 ## Changes
 

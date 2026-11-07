@@ -40,6 +40,22 @@ test('the waitlist form says when an address is not one', async ({ page }) => {
   await expect(form.getByRole('alert')).toBeVisible();
 });
 
+test('the confirming page waits for a click, and says what it is for without a link', async ({ page }) => {
+  await page.goto('/waitlist/confirm/#token-from-the-email');
+  const button = page.locator('main').getByRole('button');
+  await expect(button).toBeEnabled();
+  // Opening the link confirms nothing: no answer is on the page until the button is clicked.
+  await expect(page.locator('main').getByRole('status')).toHaveCount(0);
+  await expect(page.locator('main').getByRole('alert')).toBeHidden();
+  await button.click();
+  // A build without the relay's address says it could not confirm, and keeps the button to try again.
+  await expect(page.locator('main').getByRole('alert')).toBeVisible();
+  await expect(button).toBeEnabled();
+
+  await page.goto('/waitlist/confirm/');
+  await expect(page.locator('main').getByRole('status').locator('a[href="/waitlist/"]')).toBeVisible();
+});
+
 test('the bar folds into a menu on a phone', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 });
   await page.goto('/firmware/');

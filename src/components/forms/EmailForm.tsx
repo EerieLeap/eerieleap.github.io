@@ -8,25 +8,36 @@ export type FormWords = {
   joining: string;
   note: string;
   invalid: string;
+  /** On the list now; the welcome is on its way. */
+  joined: string;
+  /** A link is on its way: the address left the list before, and coming back takes its owner's click. */
   sent: string;
   already: string;
   failed: string;
   again: string;
 };
 
-type Status = 'idle' | 'invalid' | 'sending' | 'sent' | 'already' | 'failed';
-type Outcome = 'sent' | 'already' | 'failed';
+type Status = 'idle' | 'invalid' | 'sending' | 'joined' | 'sent' | 'already' | 'failed';
+type Outcome = 'joined' | 'sent' | 'already' | 'failed';
 
 const ADDRESS = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Asks the relay to add an address to the list. README.md, "The waitlist", has what the relay answers. */
-async function join(endpoint: string, body: { email: string; page: string; lang: string }): Promise<Outcome> {
+async function join(
+  endpoint: string,
+  body: { email: string; page: string; lang: string; message: string },
+): Promise<Outcome> {
   if (!endpoint) {
     // No list service yet. While developing, the form answers by itself so that its states can be seen; a built site never
     // pretends: it says the address could not be sent.
     if (!import.meta.env.DEV) return 'failed';
     await new Promise((resolve) => setTimeout(resolve, 600));
-    return body.email.startsWith('already') ? 'already' : body.email.startsWith('fail') ? 'failed' : 'sent';
+    const simulated: [string, Outcome][] = [
+      ['already', 'already'],
+      ['fail', 'failed'],
+      ['left', 'sent'],
+    ];
+    return simulated.find(([start]) => body.email.startsWith(start))?.[1] ?? 'joined';
   }
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -35,7 +46,8 @@ async function join(endpoint: string, body: { email: string; page: string; lang:
   });
   if (!response.ok) return 'failed';
   const answer: { status?: string } = await response.json();
-  return answer.status === 'pending' ? 'sent' : answer.status === 'already' ? 'already' : 'failed';
+  const outcomes: Record<string, Outcome> = { joined: 'joined', pending: 'sent', already: 'already' };
+  return outcomes[answer.status ?? ''] ?? 'failed';
 }
 
 /** Tells the rest of the page that an address joined: the Waitlist page then shows its questions. */
@@ -62,16 +74,17 @@ export function EmailForm({
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<Status>('idle');
 
-  async function submit(event: SubmitEvent) {
+  async function submit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const address = email.trim();
     if (!ADDRESS.test(address)) {
       setStatus('invalid');
       return;
     }
+    const message = String(new FormData(event.currentTarget).get('message') ?? '');
     setStatus('sending');
     try {
-      const outcome = await join(endpoint, { email: address, page, lang });
+      const outcome = await join(endpoint, { email: address, page, lang, message });
       setStatus(outcome);
       if (outcome !== 'failed') window.dispatchEvent(new CustomEvent(JOINED, { detail: { email: address } }));
     } catch {
@@ -79,8 +92,8 @@ export function EmailForm({
     }
   }
 
-  if (status === 'sent' || status === 'already') {
-    const [before, after = ''] = words.sent.split('{email}');
+  if (status === 'joined' || status === 'sent' || status === 'already') {
+    const [before, after = ''] = (status === 'joined' ? words.joined : words.sent).split('{email}');
     return (
       <p role="status" className="border border-line bg-ground/70 px-4 py-3.5 text-[15px]">
         <span aria-hidden="true" className="mr-2.5 inline-block size-[7px] rounded-full bg-pip align-[1px]" />
@@ -123,6 +136,10 @@ export function EmailForm({
         </div>
         <input type="hidden" name="page" value={page} />
         <input type="hidden" name="lang" value={lang} />
+        {/* A field people never see and simple bots fill in: the relay drops a join that has it filled. */}
+        <div aria-hidden="true" className="sr-only">
+          <input type="text" name="message" tabIndex={-1} autoComplete="off" defaultValue="" />
+        </div>
         <button
           type="submit"
           disabled={status === 'sending'}
