@@ -79,7 +79,7 @@ app:
     caption: 'fig. 04 · and on a phone'
   cells:
     - image: 'crop-map.webp'
-      alt: 'Part of a system map: sensors, math expressions and the wires between them'
+      alt: 'Part of a system map: sensors wired to gauge widgets, and the widgets to a gauge screen'
       title: 'the whole system on one map'
       text: 'Every unit, input, message, sensor and gauge widget, and the wires between them. Draw a wire to connect two things.'
     - image: 'crop-sensors.webp'

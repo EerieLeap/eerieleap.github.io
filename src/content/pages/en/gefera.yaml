@@ -17,7 +17,7 @@ does:
   title: 'what you do in it'
   items:
     - image: 'crop-map.webp'
-      alt: 'Part of a system map: sensors, math expressions and the wires between them'
+      alt: 'Part of a system map: sensors wired to gauge widgets, and the widgets to a gauge screen'
       title: 'see the whole system on one map'
       text: 'Every unit, input, message, sensor, logger and gauge widget, and what is wired to what.'
     - image: 'crop-sensors.webp'
@@ -59,8 +59,8 @@ both:
   lead: 'The desktop is for designing. The phone is for the moment you are standing at the car.'
   desktop:
     image: 'system-map.webp'
-    alt: "The System Map on the desktop: a unit's sensors, the math expressions over them and the logger they go to, wired together"
-    caption: 'fig. 02 · on the desktop: the System Map, from the sensors to the logger'
+    alt: 'The System Map on the desktop: two units on one CAN bus, a logger that reads, logs and sends oil pressure, and a dash that receives it and shows it on its gauge'
+    caption: 'fig. 02 · on the desktop: the System Map, from a sensor to the gauge'
   phone:
     image: 'gauge-clip.webp'
     alt: "Gefera on a phone: swiping through a gauge's screens"
